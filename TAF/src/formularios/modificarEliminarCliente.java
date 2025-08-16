@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package formularios;
 
 import java.sql.Connection;
@@ -11,10 +7,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author brian
- */
+
 public class modificarEliminarCliente extends javax.swing.JPanel {
     Connection cx=conexion.conexion.conexion();
     ResultSet rs;
@@ -22,9 +15,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     DefaultTableModel tabla=new DefaultTableModel();
     Object[] datos=new Object[4];
 
-    /**
-     * Creates new form modificarEliminarCliente
-     */
+ 
     public modificarEliminarCliente() {
         initComponents();
         cancelar();
@@ -32,6 +23,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
         desactivarCancelar();
         desactivarGuardar();
         desactivarEliminar();
+        desactivarEditar();
     }
     
     
@@ -67,10 +59,6 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     
     
     void cancelar(){
-          txtNombre2.setText("");
-        txtApellido2.setText("");
-        txtTelefono.setText("");
-        txtDireccion.setText("");
       
                 
         txtNombre2.setEnabled(false);
@@ -89,6 +77,15 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
         txtDireccion.setEnabled(true);
        
     }
+    
+    void activarEditar(){
+        botonEditar.setEnabled(true);
+    }
+    
+     void desactivarEditar(){
+        botonEditar.setEnabled(false);
+    }
+    
     void activarEliminar(){
         botonEliminar.setEnabled(true);
         
@@ -140,6 +137,8 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
         botonCancelar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
+        botonListar = new javax.swing.JButton();
+        labelCodigoCliente = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificación o Eliminación de Clientes");
@@ -262,6 +261,16 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
             }
         });
 
+        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonListar.setText("LISTAR");
+        botonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarActionPerformed(evt);
+            }
+        });
+
+        labelCodigoCliente.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,26 +283,29 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addComponent(jLabel3)
                                 .addGap(44, 44, 44)
                                 .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(102, 102, 102)
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(128, 128, 128)
                                 .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(129, 129, 129)
                                 .addComponent(botonEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonGuardar)
-                                .addGap(22, 22, 22))))
+                                .addGap(110, 110, 110)
+                                .addComponent(botonGuardar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(labelCodigoCliente))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jLabel5)
@@ -301,7 +313,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
                         .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(132, 132, 132)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -323,57 +335,55 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
-                .addGap(96, 96, 96)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonBuscar)
+                            .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(labelCodigoCliente)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-          
-     
-       String nombre2=txtNombre2.getText();
-       String apellido2=txtApellido2.getText();
-       String telefono= txtTelefono.getText();
-       String direccion= txtDireccion.getText();
+          int codigo=Integer.parseInt(labelCodigoCliente.getText());
+        try{
+           
        
-      if(nombre2.isEmpty() || apellido2.isEmpty() || telefono.isEmpty() || direccion.isEmpty()  ){
-          JOptionPane.showMessageDialog(null, "Debe llenar todos los campos","ERROR",ERROR_MESSAGE);
-          return;
-      } 
-       try{
-   
-          int codigoCliente=clases.cliente.obtenerCodigoCliente(cx, txtNombre2.getText(), txtApellido.getText());
-          
           //update
-          clases.cliente.updateCliente(cx, txtNombre2.getText(), txtApellido2.getText(), txtTelefono.getText(), txtDireccion.getText(), codigoCliente );
+          clases.cliente.updateCliente(cx, txtNombre2.getText(), txtApellido2.getText(), txtTelefono.getText(), txtDireccion.getText(), codigo );
+           JOptionPane.showMessageDialog(null, "Se han actualizado los datos del cliente correctamente");
            limpiar();
-           activarEliminar();
+           desactivarEliminar();
            desactivarCancelar();
            desactivarGuardar();
+           
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al actualizar el cliente","ERROR",ERROR_MESSAGE);
@@ -392,20 +402,18 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     
     String apellido=txtApellido.getText();
     try{
-        tablaClientes.setModel(tabla);
+       
         rs=clases.cliente.verCliente(cx,apellido);
      
-        if(rs.next()){
+        while(rs.next()){
             datos[0]=rs.getString("nombre");
             datos[1]=rs.getString("apellido");
             datos[2]=rs.getString("telefono");
             datos[3]=rs.getString("direccion");
-            
+           
             tabla.addRow(datos);
-            activarEliminar();
-        }else{
-             JOptionPane.showMessageDialog(null, "No existe ese cliente","ERROR EN LA BUSQUEDA  ",ERROR_MESSAGE);
         }
+         tablaClientes.setModel(tabla);
        
     }catch(Exception e){
           JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar un cliente","ERROR",ERROR_MESSAGE);
@@ -427,6 +435,14 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
             txtApellido2.setText(apellido);
             txtTelefono.setText(telefono);
             txtDireccion.setText(direccion);
+            
+            int codigo=clases.cliente.obtenerCodigoCliente(cx, nombre, apellido, telefono);
+            labelCodigoCliente.setText(String.valueOf(codigo));
+            activarEditar();
+            activarEliminar();
+            cancelar();
+            desactivarGuardar();
+            desactivarCancelar();
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -434,23 +450,16 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_tablaClientesMouseClicked
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        if (txtNombre.getText().isEmpty()|| txtApellido.getText().isEmpty() ){
-             JOptionPane.showMessageDialog(null, "No se puede eliminar sin el nombre y apellido del cliente a eliminar","ERROR",ERROR_MESSAGE);
-             return;
-        }
-        int respuesta = JOptionPane.showConfirmDialog(
-       null,
-       "¿Estás seguro de que deseas eliminar a este cliente?",
-       "Confirmar eliminación",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE
-       );
+       
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar a este cliente?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (respuesta == JOptionPane.YES_OPTION){
+           int codigo=Integer.parseInt(labelCodigoCliente.getText());
           try{
-            clases.cliente.eliminarCliente(cx, txtNombre.getText(), txtApellido.getText());
+            clases.cliente.eliminarCliente(cx, codigo);
              JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente");
              desactivarEliminar();
-            limpiar();
+              limpiar();
+             desactivarEditar();
             
           }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar eliminar el cliente","ERROR",ERROR_MESSAGE);
@@ -465,6 +474,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
         desactivarEliminar();
         activarCancelar();
         activarGuardar();
+        desactivarEditar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -472,6 +482,8 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
         activarEliminar();
         desactivarGuardar();
         desactivarCancelar();
+        desactivarEditar();
+        desactivarEliminar();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
@@ -533,6 +545,38 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
+    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
+         //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaClientes' es la tabla que hemos creado en el formulario.
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre");
+    tabla.addColumn("Apellido");
+    tabla.addColumn("Telefono");
+    tabla.addColumn("Dirección");
+    
+    
+    
+    try{
+        
+        rs=clases.cliente.verTodosClientes(cx);
+     
+         while(rs.next()){
+            datos[0]=rs.getString("nombre");
+            datos[1]=rs.getString("apellido");
+            datos[2]=rs.getString("telefono");
+            datos[3]=rs.getString("direccion");
+           
+            tabla.addRow(datos);
+           
+        }
+          tablaClientes.setModel(tabla);
+       
+    }catch(Exception e){
+          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar un cliente","ERROR",ERROR_MESSAGE);
+        
+    }
+    }//GEN-LAST:event_botonListarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
@@ -540,6 +584,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton botonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -547,6 +592,7 @@ public class modificarEliminarCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelCodigoCliente;
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtApellido2;

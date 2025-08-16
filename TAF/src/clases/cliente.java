@@ -76,18 +76,19 @@ public class cliente {
          try{
              rs=stm.executeQuery();
          }catch(Exception e){
-              JOptionPane.showMessageDialog(null, "Ha ocurrido buscar el cliente","ERROR",ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Ha ocurrido un error buscar el cliente","ERROR",ERROR_MESSAGE);
          }
          return rs;
      }
       
       
-      public static int obtenerCodigoCliente(Connection cx, String nombre, String apellido)throws Exception{
+      public static int obtenerCodigoCliente(Connection cx, String nombre, String apellido, String telefono)throws Exception{
           ResultSet rs=null;
           int codigo=0;
-          PreparedStatement stm=cx.prepareStatement("SELECT codigo from clientes where nombre=? and apellido=?");
+          PreparedStatement stm=cx.prepareStatement("SELECT codigo from clientes where nombre=? and apellido=? and telefono =?");
           stm.setString(1,nombre);
           stm.setString(2,apellido);
+          stm.setString(3, telefono);
           
           try{
               rs=stm.executeQuery();
@@ -117,10 +118,10 @@ public class cliente {
              
       }
       
-      public static void eliminarCliente(Connection cx, String nombre, String apellido)throws Exception{
-          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set borrado=1 where nombre=? and apellido=?");
-          stm.setString(1, nombre);
-          stm.setString(2, apellido);
+      public static void eliminarCliente(Connection cx, int codigo)throws Exception{
+          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set borrado=1 where codigo=?");
+          stm.setInt(1, codigo);
+         
           
           try{
               stm.executeUpdate();
