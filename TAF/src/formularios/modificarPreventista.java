@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class modificarPreventista extends javax.swing.JPanel {
     Connection cx=conexion.conexion.conexion();
       DefaultTableModel tabla=new DefaultTableModel();
-      Object[] datos=new Object[6];
+      Object[] datos=new Object[5];
       ResultSet rs;
 
     /**
@@ -30,6 +30,7 @@ public class modificarPreventista extends javax.swing.JPanel {
         desactivarGuardar();
         desactivarCancelar();
         cancelar();
+        desactivarEditar();
     }
     
      public void habilitarBotonBuscar(){
@@ -61,13 +62,16 @@ public class modificarPreventista extends javax.swing.JPanel {
          txtTelefono.setEnabled(false);
          txtAñoIngreso.setEnabled(false);
          
-         txtNombre.setText("");
-         txtApellido.setText("");
-         txtDni2.setText("");
-         txtTelefono.setText("");
-         txtAñoIngreso.setText("");
+      
      }
      
+     void activarEditar(){
+         botonEditar.setEnabled(true);
+     }
+     
+      void desactivarEditar(){
+         botonEditar.setEnabled(false);
+     }
      void desactivarBuscar(){
          botonBuscar.setEnabled(false);
      }
@@ -89,6 +93,11 @@ public class modificarPreventista extends javax.swing.JPanel {
      void limpiar(){
          tabla.setRowCount(0);   
            labelIdPreventista.setText("");
+              txtNombre.setText("");
+         txtApellido.setText("");
+         txtDni2.setText("");
+         txtTelefono.setText("");
+         txtAñoIngreso.setText("");
      }
 
     /**
@@ -120,6 +129,7 @@ public class modificarPreventista extends javax.swing.JPanel {
         botonCancelar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
         labelIdPreventista = new javax.swing.JLabel();
+        botonListar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificar Preventistas");
@@ -263,6 +273,14 @@ public class modificarPreventista extends javax.swing.JPanel {
 
         labelIdPreventista.setText("jLabel8");
 
+        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonListar.setText("LISTAR");
+        botonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -312,7 +330,9 @@ public class modificarPreventista extends javax.swing.JPanel {
                         .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(182, 182, 182))
+                        .addGap(18, 18, 18)
+                        .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
@@ -331,7 +351,8 @@ public class modificarPreventista extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
+                    .addComponent(botonBuscar)
+                    .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
@@ -371,7 +392,7 @@ public class modificarPreventista extends javax.swing.JPanel {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
     //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
-    String codigo;
+   
     tabla.setRowCount(0);   
     tabla.setColumnCount(0);
     tabla.addColumn("Nombre");
@@ -384,20 +405,19 @@ public class modificarPreventista extends javax.swing.JPanel {
         try{
             tablaPreventista.setModel(tabla);
              rs= clases.preventista.verPreventista(cx, dni);
-             // while(rs.next()){
+          
              if(rs.next()){
                    datos[0]=rs.getString("nombre");
                    datos[1]=rs.getString("apellido");
                    datos[2]=rs.getInt("dni");
                    datos[3]=rs.getString("telefono");
                    datos[4]=rs.getInt("año_ingreso");
-                   datos[5]=rs.getInt("codigo");
-                   codigo=String.valueOf(datos[5]);
+                 
+                  
                    
                    
                    tabla.addRow(datos);
-                   labelIdPreventista.setText(codigo);
-             // }
+
              }else{
                   JOptionPane.showMessageDialog(null, "No existe el preventista con dni "+txtDni.getText(),"ERROR",ERROR_MESSAGE); 
              }
@@ -409,11 +429,12 @@ public class modificarPreventista extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-       int codigo= Integer.parseInt(labelIdPreventista.getText().toString());
+       int dniF= Integer.parseInt(labelIdPreventista.getText().toString());
        int dni= Integer.parseInt(txtDni2.getText().toString());
        int año_ingreso= Integer.parseInt(txtAñoIngreso.getText().toString());
        try{
-           clases.preventista.updatePreventista(cx,txtNombre.getText(), txtApellido.getText(), dni, txtTelefono.getText(), año_ingreso, codigo );
+           clases.preventista.updatePreventista(cx,txtNombre.getText(), txtApellido.getText(), dni, txtTelefono.getText(), año_ingreso, dniF );
+            JOptionPane.showMessageDialog(null, "Se han actualizado los datos del preventista correctamente");
            cancelar();
            desactivarCancelar();
            desactivarGuardar();
@@ -441,6 +462,12 @@ public class modificarPreventista extends javax.swing.JPanel {
             txtTelefono.setText(telefono);
             txtAñoIngreso.setText(año_ingreso);
             
+            activarEditar();
+            cancelar();
+            desactivarGuardar();
+            desactivarCancelar();
+            labelIdPreventista.setText(dni);
+            
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -463,6 +490,7 @@ public class modificarPreventista extends javax.swing.JPanel {
         editar();
         activarCancelar();
         activarGuardar();
+        desactivarEditar();
         
     }//GEN-LAST:event_botonEditarActionPerformed
 
@@ -542,12 +570,51 @@ public class modificarPreventista extends javax.swing.JPanel {
         habilitarBotonGuardar();
     }//GEN-LAST:event_txtAñoIngresoKeyReleased
 
+    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
+    
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre");
+    tabla.addColumn("Apellido"); 
+    tabla.addColumn("Dni"); 
+    tabla.addColumn("Teléfono"); 
+    tabla.addColumn("Año Ingreso"); 
+    
+    
+        try{
+          
+             rs= clases.preventista.listarPreventistas(cx);
+             while(rs.next()){
+           
+                   datos[0]=rs.getString("nombre");
+                   datos[1]=rs.getString("apellido");
+                   datos[2]=rs.getInt("dni");
+                   datos[3]=rs.getString("telefono");
+                   datos[4]=rs.getInt("año_ingreso");
+                  
+                  
+                   
+                   
+                   tabla.addRow(datos);
+               
+             }
+             
+               tablaPreventista.setModel(tabla);
+            
+             
+              
+          }catch(Exception e){
+                   JOptionPane.showMessageDialog(null, "Ha ocurrido un error al mostrar el preventista","ERROR",ERROR_MESSAGE); 
+          }
+    }//GEN-LAST:event_botonListarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton botonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

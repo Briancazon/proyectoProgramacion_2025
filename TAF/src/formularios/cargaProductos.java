@@ -155,7 +155,7 @@ public class cargaProductos extends javax.swing.JPanel {
         float precio= Float.parseFloat(txtPrecio.getText());
         try{
             clases.producto.cargarProducto(cx, txtDescripcion.getText(), txtMarca.getText(),precio );
-            JOptionPane.showConfirmDialog(this,"Se ha cargado correctamente el prodcuto");
+              JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el producto");
             limpiar();
             desactivarGuardar();
         }catch(Exception e){
@@ -166,7 +166,7 @@ public class cargaProductos extends javax.swing.JPanel {
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         char c=evt.getKeyChar();
          // verificar si el carácter ingresado es una letra
-      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion.getText().length()>21 ) {
+      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion.getText().length()>31 ) {
         evt.consume();  // si no es una letra, consume el evento y no permite el ingreso
     }
     }//GEN-LAST:event_txtDescripcionKeyTyped

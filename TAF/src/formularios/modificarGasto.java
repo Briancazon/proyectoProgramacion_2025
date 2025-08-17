@@ -26,6 +26,7 @@ public class modificarGasto extends javax.swing.JPanel {
         desactivarCancelar();
         cancelar();
         desactivarGuardar();
+        desactivarEditar();
     }
     
      public void habilitarBotonBuscar(){
@@ -43,6 +44,15 @@ public class modificarGasto extends javax.swing.JPanel {
            botonGuardar.setEnabled(false);
        }
     }
+      
+      void activarEditar(){
+          botonEditar.setEnabled(true);
+      }
+      
+      void desactivarEditar(){
+          botonEditar.setEnabled(false);
+      }
+      
      void desactivarBuscar(){
          botonBuscar.setEnabled(false);
      }
@@ -59,7 +69,7 @@ public class modificarGasto extends javax.swing.JPanel {
          botonGuardar.setEnabled(true);
      }
      void cancelar(){
-         txtNombre2.setText("");
+         
          txtNombre2.setEnabled(false);
      }
      void editar(){
@@ -68,6 +78,7 @@ public class modificarGasto extends javax.swing.JPanel {
      
      void limpiar(){
          tabla.setRowCount(0);
+         txtNombre2.setText("");
      }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +101,9 @@ public class modificarGasto extends javax.swing.JPanel {
         botonCancelar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
         labelIdGasto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+
+        setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificar Gastos");
@@ -168,7 +182,13 @@ public class modificarGasto extends javax.swing.JPanel {
             }
         });
 
-        labelIdGasto.setText("orignal");
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("LISTAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -183,42 +203,48 @@ public class modificarGasto extends javax.swing.JPanel {
                 .addComponent(botonGuardar)
                 .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
+                .addContainerGap(400, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(378, 378, 378))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(83, 83, 83)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(110, 110, 110)
-                                .addComponent(labelIdGasto)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(378, 378, 378))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(88, 88, 88)
+                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
+                        .addComponent(labelIdGasto)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonBuscar)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel2)))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -226,7 +252,7 @@ public class modificarGasto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(labelIdGasto)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,10 +276,10 @@ public class modificarGasto extends javax.swing.JPanel {
              rs=clases.gasto.verGasto(cx, txtNombre.getText());
               while(rs.next()){
                    datos[0]=rs.getString("nombre_gasto");
-                   datos[1]=rs.getInt("id_gasto");
+       
                   
                    tabla.addRow(datos);
-                   labelIdGasto.setText(datos[1].toString());
+    
                  
               }
              
@@ -272,7 +298,12 @@ public class modificarGasto extends javax.swing.JPanel {
            
             
             txtNombre2.setText(nombre);
-           
+            int id=clases.gasto.obtenerId(cx, nombre);
+           labelIdGasto.setText(String.valueOf(id));
+           activarEditar();
+           desactivarGuardar();
+           desactivarCancelar();
+           cancelar();
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -283,6 +314,7 @@ public class modificarGasto extends javax.swing.JPanel {
         int id= Integer.parseInt(labelIdGasto.getText());
         try{
             clases.gasto.updateGasto(cx, txtNombre2.getText(), id);
+            JOptionPane.showMessageDialog(null, "Se han actualizado los datos del gasto");
             desactivarCancelar();
             desactivarGuardar();
             limpiar();
@@ -308,6 +340,7 @@ public class modificarGasto extends javax.swing.JPanel {
         editar();  
         activarCancelar();
         activarGuardar();
+        desactivarEditar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -328,12 +361,35 @@ public class modificarGasto extends javax.swing.JPanel {
       habilitarBotonGuardar();
     }//GEN-LAST:event_txtNombre2KeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre");  
+        try{
+            tablaGastos.setModel(tabla);
+             rs=clases.gasto.verTodosGastos(cx);
+              while(rs.next()){
+                   datos[0]=rs.getString("nombre_gasto");
+       
+                  
+                   tabla.addRow(datos);
+    
+                 
+              }
+             
+              
+          }catch(Exception e){
+                   JOptionPane.showMessageDialog(null, "Ha ocurrido un error al mostrar el gasto","ERROR",ERROR_MESSAGE); 
+          }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

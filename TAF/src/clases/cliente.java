@@ -27,33 +27,6 @@ public class cliente {
     }
     
     
-     public static ResultSet mostrarZonas(Connection cx )throws SQLException{
-        ResultSet rs=null;
-        PreparedStatement stm=cx.prepareStatement("SELECT nombre from zonas");
-        try{
-            rs=stm.executeQuery();
-            
-        }catch(SQLException ex){
-              JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
-        return rs;
-    }
-     
-     public static int obtenerIdZona(Connection cx, String zona)throws Exception{
-         int id=0;
-         ResultSet rs=null;
-         PreparedStatement stm=cx.prepareStatement("SELECT id_zona from zonas where nombre = ?");
-         stm.setString(1, zona);
-         try{
-             rs=stm.executeQuery();
-             if (rs.next())
-                 id=rs.getInt("id_zona");
-            
-         }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage());
-         }
-         return id;
-     }
     
      
      

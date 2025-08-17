@@ -41,9 +41,9 @@ public class principal extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -198,13 +198,13 @@ public class principal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem9);
 
-        jMenuItem10.setText("Consulta");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem12.setText("Baja");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                jMenuItem12ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem10);
+        jMenu3.add(jMenuItem12);
 
         jMenuItem11.setText("Modificación");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
@@ -214,13 +214,13 @@ public class principal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem11);
 
-        jMenuItem12.setText("Baja");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem10.setText("Consulta");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                jMenuItem10ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem12);
+        jMenu3.add(jMenuItem10);
 
         jMenuBar1.add(jMenu3);
 

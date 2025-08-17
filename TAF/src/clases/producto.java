@@ -37,7 +37,7 @@ public class producto {
     
      public static ResultSet verTodosProductos(Connection cx)throws Exception{
         ResultSet rs= null;
-        PreparedStatement stm=cx.prepareStatement("SELECT descripcion, marca, precio from productos where borrado=0");
+        PreparedStatement stm=cx.prepareStatement("SELECT codigo, descripcion, marca, precio from productos where borrado=0");
        
         try{
            rs= stm.executeQuery();

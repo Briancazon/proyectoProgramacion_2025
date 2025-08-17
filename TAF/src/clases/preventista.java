@@ -55,14 +55,14 @@ public class preventista {
         
     }
     
-    public static void updatePreventista(Connection cx, String nombre, String apellido, int dni, String telefono, int año_ingreso, int codigo)throws Exception{
-        PreparedStatement stm= cx.prepareStatement("UPDATE preventista set nombre=?, apellido=?, dni=?, telefono=?, año_ingreso=? where codigo=?");
+    public static void updatePreventista(Connection cx, String nombre, String apellido, int dni, String telefono, int año_ingreso, int dniF)throws Exception{
+        PreparedStatement stm= cx.prepareStatement("UPDATE preventista set nombre=?, apellido=?, dni=?, telefono=?, año_ingreso=? where dni=?");
         stm.setString(1, nombre);
         stm.setString(2, apellido);
         stm.setInt(3, dni);
         stm.setString(4, telefono);
         stm.setInt(5, año_ingreso);
-        stm.setInt(6, codigo);
+        stm.setInt(6, dniF);
         
         try{
             stm.executeUpdate();
