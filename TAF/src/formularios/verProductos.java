@@ -41,6 +41,8 @@ public class verProductos extends javax.swing.JPanel {
         tablaProductos = new javax.swing.JTable();
         botonListar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Consulta Productos");
 

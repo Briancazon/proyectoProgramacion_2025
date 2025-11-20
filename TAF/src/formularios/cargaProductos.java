@@ -45,6 +45,8 @@ public class cargaProductos extends javax.swing.JPanel {
         txtPrecio = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Carga Productos");
 
@@ -155,7 +157,7 @@ public class cargaProductos extends javax.swing.JPanel {
         float precio= Float.parseFloat(txtPrecio.getText());
         try{
             clases.producto.cargarProducto(cx, txtDescripcion.getText(), txtMarca.getText(),precio );
-              JOptionPane.showMessageDialog(null, "Se ha cargado correctamente el producto");
+            JOptionPane.showConfirmDialog(this,"Se ha cargado correctamente el prodcuto");
             limpiar();
             desactivarGuardar();
         }catch(Exception e){
@@ -166,7 +168,7 @@ public class cargaProductos extends javax.swing.JPanel {
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         char c=evt.getKeyChar();
          // verificar si el carácter ingresado es una letra
-      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion.getText().length()>31 ) {
+      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion.getText().length()>21 ) {
         evt.consume();  // si no es una letra, consume el evento y no permite el ingreso
     }
     }//GEN-LAST:event_txtDescripcionKeyTyped

@@ -2,6 +2,7 @@
 package formularios;
 
 import java.sql.Connection;
+
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -39,6 +40,8 @@ public class cargaGastos extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Carga Gastos");
@@ -106,7 +109,9 @@ public class cargaGastos extends javax.swing.JPanel {
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         try{
             clases.gasto.cargarGasto(cx, txtNombre.getText());
-            JOptionPane.showMessageDialog(this, "Se ha cargado correctamente el gasto");
+   
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al cargar el gasto");  
+          
             limpiar();
         }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Ha ocurrido un error al cargar el gasto","ERROR",ERROR_MESSAGE);  

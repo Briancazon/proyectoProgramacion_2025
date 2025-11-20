@@ -31,11 +31,10 @@ public class modificarZona extends javax.swing.JPanel {
         desactivarCancelar();
         desactivarBotonBuscar();
         desactivarEliminar();
-        desactivarEditar();
     }
     
      void cancelar(){
-        
+        txtZona2.setText("");
         txtZona2.setEnabled(false);
     }
     void editar(){
@@ -64,15 +63,6 @@ public class modificarZona extends javax.swing.JPanel {
            botonGuardar.setEnabled(false);
        }
     }
-     
-     void activarEditar(){
-         botonEditar.setEnabled(true);
-     }
-     
-      void desactivarEditar(){
-         botonEditar.setEnabled(false);
-     }
-     
      
      void desactivarCancelar(){
          botonCancelar.setEnabled(false);
@@ -121,7 +111,6 @@ public class modificarZona extends javax.swing.JPanel {
         botonEliminar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
         labelIdZona = new javax.swing.JLabel();
-        botonListar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificación  o Eliminicación de Zonas");
@@ -210,22 +199,35 @@ public class modificarZona extends javax.swing.JPanel {
 
         labelIdZona.setText("jLabel4");
 
-        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        botonListar.setText("LISTAR");
-        botonListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonListarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(263, 263, 263)
-                .addComponent(jLabel1)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(46, 46, 46)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(163, 163, 163)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(52, 52, 52)
+                                    .addComponent(txtZona2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(labelIdZona)
+                .addGap(62, 62, 62))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addComponent(botonEditar)
@@ -236,30 +238,6 @@ public class modificarZona extends javax.swing.JPanel {
                 .addGap(134, 134, 134)
                 .addComponent(botonGuardar)
                 .addGap(83, 83, 83))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(163, 163, 163)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(52, 52, 52)
-                                        .addComponent(txtZona2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(labelIdZona)))
-                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,8 +248,7 @@ public class modificarZona extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar)
-                    .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonBuscar))
                 .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
@@ -322,11 +299,6 @@ public class modificarZona extends javax.swing.JPanel {
             txtZona2.setText(nombre);
             labelIdZona.setText(String.valueOf(id));
             activarEliminar();
-            activarEditar();
-            cancelar();
-            desactivarCancelar();
-            desactivarGuardar();
-            
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -336,10 +308,12 @@ public class modificarZona extends javax.swing.JPanel {
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
           String   id=labelIdZona.getText();
        int id_zona=Integer.parseInt(id);
-      
+       if (txtZona2.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "No se permite campos en blanco","ERROR",ERROR_MESSAGE);
+           return;
+       }
         try{
             clases.zona.updateZona(cx, txtZona2.getText(), id_zona);
-             JOptionPane.showMessageDialog(null, "Se han actualizado los cambios correctamente");
             limpiar();
             cancelar();
             desactivarGuardar();
@@ -369,7 +343,6 @@ public class modificarZona extends javax.swing.JPanel {
            clases.zona.eliminarZona(cx, id_zona);
             JOptionPane.showMessageDialog(null, "Se ha eliminado la zona correctamente");
             desactivarEliminar();
-            desactivarEditar();
             limpiar();
             
        }catch(Exception e){
@@ -385,7 +358,6 @@ public class modificarZona extends javax.swing.JPanel {
        activarCancelar();
        desactivarEliminar();
        activarGuardar();
-       desactivarEditar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -393,7 +365,6 @@ public class modificarZona extends javax.swing.JPanel {
        desactivarCancelar();
        desactivarGuardar();
        activarEliminar();
-       activarEditar();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void txtZonaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtZonaKeyTyped
@@ -420,29 +391,6 @@ public class modificarZona extends javax.swing.JPanel {
         habilitarBotonGuardar();
     }//GEN-LAST:event_txtZona2KeyReleased
 
-    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
-         //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
-    tabla.setRowCount(0);   
-    tabla.setColumnCount(0);
-    tabla.addColumn("Nombre");  
-        try{
-           
-             rs= clases.zona.verTodasZonas(cx);
-              while(rs.next()){
-                   datos[0]=rs.getString("nombre_zona");
-                  
-                   tabla.addRow(datos);
-                   
-                  
-              }
-               tablaZonas.setModel(tabla);
-             
-              
-          }catch(Exception e){
-                   JOptionPane.showMessageDialog(null, "Ha ocurrido un error al mostrar  la  xona","ERROR",ERROR_MESSAGE); 
-          }
-    }//GEN-LAST:event_botonListarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
@@ -450,7 +398,6 @@ public class modificarZona extends javax.swing.JPanel {
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonGuardar;
-    private javax.swing.JButton botonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

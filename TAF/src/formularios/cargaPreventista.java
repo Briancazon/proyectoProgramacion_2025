@@ -63,6 +63,8 @@ public class cargaPreventista extends javax.swing.JPanel {
         txtAñoIngreso = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Carga Preventista");
 

@@ -54,6 +54,8 @@ public class verClientes extends javax.swing.JPanel {
         botonBuscar = new javax.swing.JButton();
         botonListar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Ver Clientes");
 
@@ -152,22 +154,27 @@ public class verClientes extends javax.swing.JPanel {
      
     
     try{
-      
+        tablaClientes.setModel(tabla);
         rs=clases.cliente.verCliente(cx, txtApellido.getText());
         
        
-        while(rs.next()){
-      
+       // while(rs.next()){
+       if (rs.next()){
             datos[0]=rs.getString("nombre");
             datos[1]=rs.getString("apellido");
             datos[2]=rs.getString("telefono");
             datos[3]=rs.getString("direccion");
            
             tabla.addRow(datos);
-         
-        }
-          tablaClientes.setModel(tabla);
-    
+        //}
+       }else{
+            JOptionPane.showMessageDialog(null, "No existe ese cliente","ERROR",ERROR_MESSAGE);
+       }
+        
+        
+        
+            
+        
         
     }catch(Exception e){
           JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar un cliente","ERROR",ERROR_MESSAGE);

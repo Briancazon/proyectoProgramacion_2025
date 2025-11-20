@@ -59,6 +59,8 @@ public class eliminarUsuario extends javax.swing.JPanel {
         botonEliminar = new javax.swing.JButton();
         codigoU = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Eliminar Usuario");
 

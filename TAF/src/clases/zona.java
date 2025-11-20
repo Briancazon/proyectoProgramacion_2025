@@ -72,9 +72,6 @@ public class zona {
     }
     
     
-    
-    
-    
     public static int obtenerId(Connection cx, String nombre)throws Exception{
         ResultSet rs=null;
         int id=0;

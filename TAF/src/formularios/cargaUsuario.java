@@ -51,6 +51,8 @@ public class cargaUsuario extends javax.swing.JPanel {
         txtContraseña = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Carga Usuario");
 

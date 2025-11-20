@@ -29,15 +29,15 @@ public class cargarCliente extends javax.swing.JPanel {
     }
     
     void limpiar(){
-        txtNombre.setText("");
-        txtApellido.setText("");
+        apenom.setText("");
+        
         txtTelefono.setText("");
         txtDireccion.setText("");
         
     }
     //metodo que valida si todos los campos estan llenos, si es asi, habilita al boton guardar, de lo contrario, seguirá inhabilitado
     public void habilitarBotonGuardar(){
-       if( !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty() && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()){
+       if( !apenom.getText().isEmpty()  && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()){
            botonGuardar.setEnabled(true);
        }else{
            botonGuardar.setEnabled(false);
@@ -57,39 +57,27 @@ public class cargarCliente extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
+        apenom = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Carga de Clientes");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Nombre y Apellido");
 
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        apenom.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNombreKeyReleased(evt);
+                apenomKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Apellido");
-
-        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtApellidoKeyTyped(evt);
+                apenomKeyTyped(evt);
             }
         });
 
@@ -133,14 +121,10 @@ public class cargarCliente extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(apenom, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -167,14 +151,12 @@ public class cargarCliente extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(apenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(96, 96, 96)
@@ -189,7 +171,7 @@ public class cargarCliente extends javax.swing.JPanel {
               
                
               
-               clases.cliente.insertarCliente(cx, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtDireccion.getText(), 0);
+               clases.cliente.insertarCliente(cx, apenom.getText(), txtTelefono.getText(), txtDireccion.getText(), 0);
                JOptionPane.showMessageDialog(this,"Se ha cargado correctamente el cliente");
                limpiar();
                desactivarGuardar();
@@ -199,21 +181,13 @@ public class cargarCliente extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+    private void apenomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apenomKeyTyped
              char c=evt.getKeyChar();
          // verificar si el carácter ingresado es una letra
-      if (!( Character.isLetter(c) || c==' ')  || txtNombre.getText().length()>21) {
+      if (!( Character.isLetter(c) || c==' ')  || apenom.getText().length()>21) {
         evt.consume();  // si no es una letra, consume el evento y no permite el ingreso
     }
-    }//GEN-LAST:event_txtNombreKeyTyped
-
-    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-                char c=evt.getKeyChar();
-         // verificar si el carácter ingresado es una letra
-      if (  !(Character.isLetter(c)  || c==' ' ) ||  txtApellido.getText().length()>18) {
-        evt.consume();  // si no es una letra, consume el evento y no permite el ingreso
-    }
-    }//GEN-LAST:event_txtApellidoKeyTyped
+    }//GEN-LAST:event_apenomKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
            char c=evt.getKeyChar();
@@ -230,13 +204,9 @@ public class cargarCliente extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
-    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+    private void apenomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apenomKeyReleased
         habilitarBotonGuardar();
-    }//GEN-LAST:event_txtNombreKeyReleased
-
-    private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased
-        habilitarBotonGuardar();
-    }//GEN-LAST:event_txtApellidoKeyReleased
+    }//GEN-LAST:event_apenomKeyReleased
 
     private void txtDireccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyReleased
         habilitarBotonGuardar();
@@ -248,15 +218,13 @@ public class cargarCliente extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apenom;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -48,6 +48,8 @@ public class verGastos extends javax.swing.JPanel {
 
         jButton1.setText("jButton1");
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Consulta de Gastos");
 
@@ -108,7 +110,7 @@ public class verGastos extends javax.swing.JPanel {
                 .addComponent(botonBuscar)
                 .addGap(18, 18, 18)
                 .addComponent(botonListar)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(1060, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,7 +129,7 @@ public class verGastos extends javax.swing.JPanel {
                     .addComponent(jLabel2))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(420, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

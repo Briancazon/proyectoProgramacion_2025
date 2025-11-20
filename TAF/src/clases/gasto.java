@@ -23,8 +23,8 @@ public class gasto {
     
     public static ResultSet verGasto(Connection cx, String nombre)throws Exception{
         ResultSet rs=null;
-        PreparedStatement stm=cx.prepareStatement("SELECT id_gasto, nombre_gasto from gastos where nombre_gasto like ? and borrado=0");
-        stm.setString(1,"%"+ nombre+"%");
+        PreparedStatement stm=cx.prepareStatement("SELECT id_gasto, nombre_gasto from gastos where nombre_gasto=? and borrado=0");
+        stm.setString(1, nombre);
         try{
             rs=stm.executeQuery();
         }catch(SQLException e){
@@ -44,22 +44,6 @@ public class gasto {
         }
         return rs;
     }
-     
-     public static int obtenerId(Connection cx, String nombre)throws Exception{
-         ResultSet rs= null;
-         int id=0;
-         PreparedStatement stm=cx.prepareStatement("SELECT id_gasto from gastos where nombre_gasto=?");
-         stm.setString(1, nombre);
-         try{
-             rs=stm.executeQuery();
-             while (rs.next()){
-                 id=rs.getInt("id_gasto");
-             }
-         }catch(SQLException e){
-                JOptionPane.showMessageDialog(null,e.getMessage());  
-         }
-         return id;
-     }
    
      
      
@@ -83,4 +67,22 @@ public class gasto {
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }
+    
+    public static int obtenerId(Connection cx, String gasto)throws Exception {
+        int id=0;
+        ResultSet rs=null;
+        PreparedStatement stm=cx.prepareStatement("SELECT id_gasto from gastos where nombre_gasto=?");
+        stm.setString(1, gasto);
+        try{
+            rs=stm.executeQuery();
+            while(rs.next()){
+                id=rs.getInt("id_gasto");
+            }
+        }catch(SQLException e){
+              JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        return id;
+    }
+    
+
 }

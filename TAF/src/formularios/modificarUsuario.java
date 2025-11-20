@@ -92,6 +92,8 @@ public class modificarUsuario extends javax.swing.JPanel {
         txtContraseña = new javax.swing.JTextField();
         codigoU = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificación Usuario");
 

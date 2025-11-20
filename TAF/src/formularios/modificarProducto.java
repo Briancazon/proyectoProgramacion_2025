@@ -23,7 +23,6 @@ public class modificarProducto extends javax.swing.JPanel {
         cancelar();
         desactivarGuardar();
         desactivarCancelar();
-        desactivarEditar();
     }
      public void habilitarBotonBuscar(){
        if( !txtDescripcion.getText().isEmpty()){
@@ -47,13 +46,10 @@ public class modificarProducto extends javax.swing.JPanel {
          txtMarca.setEnabled(false);
          txtPrecio.setEnabled(false);
          
-      
-     }
-      void limpiar(){
          txtDescripcion2.setText("");
          txtMarca.setText("");
          txtPrecio.setText("");
-      }
+     }
      
      void desactivarGuardar(){
          botonGuardar.setEnabled(false);
@@ -70,23 +66,6 @@ public class modificarProducto extends javax.swing.JPanel {
      void activarCancelar(){
          botonCancelar.setEnabled(true);
      }
-     
-     void activarEditar(){
-         botonEditar.setEnabled(true);
-     }
-     
-      void desactivarEditar(){
-         botonEditar.setEnabled(false);
-     }
-     
-      
-          void habilitarBotonGuardar(){
-       if( !txtDescripcion2.getText().isEmpty() && !txtMarca.getText().isEmpty() && !txtPrecio.getText().isEmpty()  ) {
-           botonGuardar.setEnabled(true);
-       }else{
-           botonGuardar.setEnabled(false);
-       }
-    }
      
      
 
@@ -115,7 +94,8 @@ public class modificarProducto extends javax.swing.JPanel {
         botonCancelar = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
         labelIdProducto = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Modificar Producto");
@@ -162,9 +142,6 @@ public class modificarProducto extends javax.swing.JPanel {
         jLabel3.setText("Descripción");
 
         txtDescripcion2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDescripcion2KeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescripcion2KeyTyped(evt);
             }
@@ -174,9 +151,6 @@ public class modificarProducto extends javax.swing.JPanel {
         jLabel4.setText("Marca");
 
         txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtMarcaKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMarcaKeyTyped(evt);
             }
@@ -186,9 +160,6 @@ public class modificarProducto extends javax.swing.JPanel {
         jLabel5.setText("Precio");
 
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioKeyTyped(evt);
             }
@@ -220,18 +191,14 @@ public class modificarProducto extends javax.swing.JPanel {
 
         labelIdProducto.setText("jLabel6");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("LISTAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
                 .addComponent(botonEditar)
@@ -242,6 +209,17 @@ public class modificarProducto extends javax.swing.JPanel {
                 .addGap(106, 106, 106))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(375, 375, 375)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,32 +238,12 @@ public class modificarProducto extends javax.swing.JPanel {
                                 .addComponent(labelIdProducto))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
-                                .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(375, 375, 375)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(69, 69, 69))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(325, 325, 325))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel2)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,8 +254,7 @@ public class modificarProducto extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(botonBuscar)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonBuscar))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
@@ -356,11 +313,9 @@ public class modificarProducto extends javax.swing.JPanel {
         float precio= Float.parseFloat(txtPrecio.getText());
         try{
             clases.producto.updateProducto(cx, txtDescripcion2.getText(), txtMarca.getText(), precio, codigo);
-            JOptionPane.showMessageDialog(null, "Se han actualizado los datos del producto correctamente");
             desactivarGuardar();
             desactivarCancelar();
             cancelar();
-            limpiar();
             labelIdProducto.setText("");
         }catch(Exception e){
           JOptionPane.showMessageDialog(null, "Ha ocurrido un error al actualizar el producto","ERROR",ERROR_MESSAGE);
@@ -381,10 +336,7 @@ public class modificarProducto extends javax.swing.JPanel {
             txtMarca.setText(marca);
             txtPrecio.setText(precio);
             
-            activarEditar();
-            desactivarCancelar();
-            desactivarGuardar();
-            cancelar();
+            
      
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -402,7 +354,7 @@ public class modificarProducto extends javax.swing.JPanel {
     private void txtDescripcion2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcion2KeyTyped
              char c=evt.getKeyChar();
          // verificar si el carácter ingresado es una letra
-      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion2.getText().length()>31 ) {
+      if (!( Character.isLetter(c) || c==' '|| Character.isDigit(c)) || txtDescripcion2.getText().length()>21 ) {
         evt.consume();  // si no es una letra, consume el evento y no permite el ingreso
     }
     }//GEN-LAST:event_txtDescripcion2KeyTyped
@@ -427,7 +379,6 @@ public class modificarProducto extends javax.swing.JPanel {
         editar();
         activarGuardar();
         activarCancelar();
-        desactivarEditar();
         
     }//GEN-LAST:event_botonEditarActionPerformed
 
@@ -441,53 +392,12 @@ public class modificarProducto extends javax.swing.JPanel {
        desactivarGuardar();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void txtDescripcion2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcion2KeyReleased
-        habilitarBotonGuardar();
-    }//GEN-LAST:event_txtDescripcion2KeyReleased
-
-    private void txtMarcaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyReleased
-         habilitarBotonGuardar();
-    }//GEN-LAST:event_txtMarcaKeyReleased
-
-    private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
-         habilitarBotonGuardar();
-    }//GEN-LAST:event_txtPrecioKeyReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      tabla.setRowCount(0);   
-    tabla.setColumnCount(0);
-    tabla.addColumn("Código");
-    tabla.addColumn("Descripcion");
-    tabla.addColumn("Marca"); 
-    tabla.addColumn("Precio"); 
-
-        try{
-           tablaProductos.setModel(tabla);
-              rs= clases.producto.verTodosProductos(cx);
-              while(rs.next()){
-                   datos[0]=rs.getString("codigo");
-                   datos[1]=rs.getString("descripcion");
-                   datos[2]=rs.getString("marca");
-                   datos[3]=rs.getString("precio");
-                   
-                 
-                   tabla.addRow(datos);
-
-              }
-             
-       }catch(Exception e){
-           e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el producto","ERROR",ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
