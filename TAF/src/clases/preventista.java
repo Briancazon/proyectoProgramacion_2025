@@ -18,12 +18,10 @@ public class preventista {
         stm.setString(4, telefono);
         stm.setInt(5, añoIngreso);
         
-        try{
+
             stm.executeUpdate();
             
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        }
+      
             
         }
     
@@ -32,12 +30,10 @@ public class preventista {
         ResultSet rs=null;
         PreparedStatement stm= cx.prepareStatement("select codigo, nombre, apellido, dni, telefono, año_ingreso from preventista where dni= ? and borrado=0");
         stm.setInt(1, dni);
-        try{
+       
             rs = stm.executeQuery();
-        }catch(Exception e){
-              JOptionPane.showMessageDialog(null,e.getMessage());   
-            
-        }
+
+      
         return rs;
         
     }
@@ -65,12 +61,9 @@ public class preventista {
         stm.setInt(5, año_ingreso);
         stm.setInt(6, codigo);
         
-        try{
+
             stm.executeUpdate();
-        }catch(SQLException e){
-             JOptionPane.showMessageDialog(null,e.getMessage());  
-            
-        }
+     
         
     }
     
@@ -78,11 +71,9 @@ public class preventista {
     public static void eliminarPreventista(Connection cx, int dni)throws Exception {
         PreparedStatement stm=cx.prepareStatement("UPDATE preventista set borrado = 1 where dni =? ");
         stm.setInt(1, dni);
-        try{
+
             stm.executeUpdate();
-        }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage());  
-        }
+      
     }
     
     public static int obetnerId(Connection cx, String apellido)throws Exception{

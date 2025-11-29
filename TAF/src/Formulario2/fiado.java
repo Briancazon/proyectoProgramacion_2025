@@ -14,7 +14,7 @@ public class fiado extends javax.swing.JPanel {
     Connection cx=conexion.conexion.conexion();
     DefaultComboBoxModel ls2= new DefaultComboBoxModel();
     DefaultTableModel tabla=new DefaultTableModel();
-     Object[] datos=new Object[5]; 
+     Object[] datos=new Object[6]; 
 
     public fiado() {
         initComponents();
@@ -26,14 +26,58 @@ public class fiado extends javax.swing.JPanel {
             rs=clases.preventista.listarPreventistas(cx);
             
             while(rs.next())
-                ls2.addElement(rs.getString("apellido"));
+               ls2.addElement(rs.getString("apellido")+"---"+rs.getString("dni"));
                 boxPreventista.setModel(ls2);
             
         }catch(Exception e){
               JOptionPane.showMessageDialog(null, "Ha ocurrido un error al mostrar los preventistas","ERROR",ERROR_MESSAGE);
         }
     }
+  
+     
+     void verFIadosPreventista(){
+         
+          tabla.setRowCount(0);   
+          tabla.setColumnCount(0);
+          tabla.addColumn("Fecha");
+          tabla.addColumn("Cliente");
+           tabla.addColumn("Tel. Cliente");
+          tabla.addColumn("Monto Fiado");
+          tabla.addColumn("Saldo Pendiente");
+          tabla.addColumn("Estado");
+          
+    
+     try{
+      
+      String preventista= boxPreventista.getSelectedItem().toString();
+            // Separar en base al guion
+            String[] partes = preventista.split("---");
+            // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+            String apellido = partes[0].trim();
+            String dni = partes[1].trim();
 
+           int id_preventista= clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni)); ///obtener el ID del preventista...
+        rs=clases.rendicion.verFiados(cx, id_preventista);
+        
+     
+        while(rs.next()){
+            datos[0]=rs.getString("ren.fecha");
+            datos[1]=rs.getString("cli.apenom");
+             datos[2]=rs.getString("cli.telefono");
+            datos[3]=rs.getString("fi.monto_fiado");
+            datos[4]=rs.getString("(fi.monto_fiado-fi.monto_entregado)");
+            datos[5]=rs.getString("fi.estado");
+            
+           
+            tabla.addRow(datos);
+        }
+         tablaFiados.setModel(tabla);
+       
+    }catch(Exception e){
+          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar los fiados del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
+        
+    }
+     }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -54,13 +98,13 @@ public class fiado extends javax.swing.JPanel {
 
         tablaFiados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Cliente", "Monto Fiado", "Saldo Pendiente", "Estado"
+                "Fecha", "Cliente", "Tel. Cliente", "Monto Fiado", "Saldo Pendiente", "Estado"
             }
         ));
         jScrollPane1.setViewportView(tablaFiados);
@@ -144,7 +188,7 @@ public class fiado extends javax.swing.JPanel {
                     .addComponent(jLabel6))
                 .addGap(32, 32, 32)
                 .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -160,38 +204,7 @@ public class fiado extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-       
-          tabla.setRowCount(0);   
-          tabla.setColumnCount(0);
-          tabla.addColumn("Fecha");
-          tabla.addColumn("Cliente");
-          tabla.addColumn("Monto Fiado");
-          tabla.addColumn("Saldo Pendiente");
-          tabla.addColumn("Estado");
-          
-    
-    String preventista=boxPreventista.getSelectedItem().toString();
-     try{
-       int id=clases.preventista.obetnerId(cx, preventista);
-        rs=clases.rendicion.verFiados(cx, id);
-        
-     
-        while(rs.next()){
-            datos[0]=rs.getString("ren.fecha");
-            datos[1]=rs.getString("cli.apenom");
-            datos[2]=rs.getString("fi.monto_fiado");
-            datos[3]=rs.getString("(fi.monto_fiado-fi.monto_entregado)");
-            datos[4]=rs.getString("fi.estado");
-            
-           
-            tabla.addRow(datos);
-        }
-         tablaFiados.setModel(tabla);
-       
-    }catch(Exception e){
-          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar las transferencias del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
-        
-    }
+ verFIadosPreventista();
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
@@ -200,8 +213,9 @@ public class fiado extends javax.swing.JPanel {
             
             String fecha =tablaFiados.getValueAt(filaSeleccionada, 0).toString();
             String cliente =tablaFiados.getValueAt(filaSeleccionada, 1).toString();
-             String monto_fiado=tablaFiados.getValueAt(filaSeleccionada,2).toString();
-             String monto_pendiente=tablaFiados.getValueAt(filaSeleccionada,3).toString();
+            String cliente_tel =tablaFiados.getValueAt(filaSeleccionada, 2).toString();
+             String monto_fiado=tablaFiados.getValueAt(filaSeleccionada,3).toString();
+             String monto_pendiente=tablaFiados.getValueAt(filaSeleccionada,4).toString();
          
             float monto_entregado=Float.parseFloat(txtMonto.getText());
             
@@ -212,12 +226,17 @@ public class fiado extends javax.swing.JPanel {
                
                
                try{
-                     
-                      int id_cliente= clases.cliente.obtenerCodigoCliente(cx, cliente);
+                      String preventista= boxPreventista.getSelectedItem().toString();
+                       // Separar en base al guion
+                       String[] partes = preventista.split("---");
+                       // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+                       String apellido = partes[0].trim();
+                       String dni = partes[1].trim();
+                      int id_cliente= clases.cliente.obtenerCodigoCliente(cx, cliente, cliente_tel);
           
                        
                        
-                       int id_preventista=clases.preventista.obetnerId(cx, boxPreventista.getSelectedItem().toString());
+                       int id_preventista=clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
                        int id_rendicion=clases.rendicion.buscarIdRendicion(cx, fecha, id_preventista);
                        int id_fiado=   clases.rendicion.obtenerIdFiado(cx, id_cliente, id_rendicion );
               
@@ -232,7 +251,7 @@ public class fiado extends javax.swing.JPanel {
                       if(total_pendiente==0){
                           clases.rendicion.cambiarEstadoFiado(cx, id_fiado, id_rendicion);
                       }
-                      
+                      verFIadosPreventista();
                       
                }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "Error al intentar saldar","ERROR",ERROR_MESSAGE);

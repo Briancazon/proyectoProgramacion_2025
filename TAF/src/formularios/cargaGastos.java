@@ -43,12 +43,13 @@ public class cargaGastos extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Carga Gastos");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Nombre del Gasto");
 
+        txtNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -63,7 +64,9 @@ public class cargaGastos extends javax.swing.JPanel {
             }
         });
 
-        botonGuardar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonGuardar.setBackground(new java.awt.Color(51, 102, 255));
+        botonGuardar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonGuardar.setForeground(new java.awt.Color(255, 255, 255));
         botonGuardar.setText("GUARDAR");
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,43 +79,48 @@ public class cargaGastos extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel2)
-                        .addGap(71, 71, 71)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(395, 395, 395)
-                        .addComponent(jLabel1)))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addGap(434, 434, 434)
+                .addComponent(jLabel2)
+                .addGap(129, 129, 129)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(639, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(406, 406, 406))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(696, 696, 696))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(80, 80, 80)
+                .addGap(136, 136, 136)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(132, 132, 132)
+                .addGap(249, 249, 249)
                 .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 287, Short.MAX_VALUE))
+                .addGap(0, 442, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         try{
+            if(txtNombre.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se aceptan campos vacíos","ERROR",ERROR_MESSAGE);  
+                    return;
+            }
             clases.gasto.cargarGasto(cx, txtNombre.getText());
    
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al cargar el gasto");  
+            JOptionPane.showMessageDialog(null, "Se ha cargado el gasto correctamente");  
           
             limpiar();
+            desactivarGuardar();
         }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Ha ocurrido un error al cargar el gasto","ERROR",ERROR_MESSAGE);  
         }

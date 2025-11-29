@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class modificarGasto extends javax.swing.JPanel {
     Connection cx=conexion.conexion.conexion();
       DefaultTableModel tabla=new DefaultTableModel();
-      Object[] datos=new Object[2];
+      Object[] datos=new Object[1];
       ResultSet rs;
 
     /**
@@ -26,6 +26,9 @@ public class modificarGasto extends javax.swing.JPanel {
         desactivarCancelar();
         cancelar();
         desactivarGuardar();
+        desactivarEditar();
+        desactivarCampo();
+        listar();
     }
     
      public void habilitarBotonBuscar(){
@@ -43,6 +46,15 @@ public class modificarGasto extends javax.swing.JPanel {
            botonGuardar.setEnabled(false);
        }
     }
+      
+      void desactivarEditar(){
+          botonEditar.setEnabled(false);
+      }
+      
+      
+      void activarEditar(){
+          botonEditar.setEnabled(true);
+      }
      void desactivarBuscar(){
          botonBuscar.setEnabled(false);
      }
@@ -60,15 +72,41 @@ public class modificarGasto extends javax.swing.JPanel {
      }
      void cancelar(){
          txtNombre2.setText("");
+         
+     }
+     void  desactivarCampo(){
          txtNombre2.setEnabled(false);
      }
+     
+      
      void editar(){
          txtNombre2.setEnabled(true);
      }
+  
      
-     void limpiar(){
-         tabla.setRowCount(0);
-     }
+     void listar(){
+      //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre del gasto");  
+        try{
+           tablaGastos.setModel(tabla);
+             rs= clases.gasto.verTodosGastos(cx);
+              while(rs.next()){
+                   datos[0]=rs.getString("nombre_gasto");
+                  
+                   tabla.addRow(datos);
+
+              }
+              cancelar();
+              desactivarEditar();
+              desactivarGuardar();
+              desactivarCancelar();
+              desactivarCampo();
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el gasto","ERROR",ERROR_MESSAGE);
+       }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,16 +127,17 @@ public class modificarGasto extends javax.swing.JPanel {
         botonEditar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         botonGuardar = new javax.swing.JButton();
-        labelIdGasto = new javax.swing.JLabel();
+        botonListar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Modificar Gastos");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Nombre");
 
+        txtNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -108,7 +147,9 @@ public class modificarGasto extends javax.swing.JPanel {
             }
         });
 
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,75 +211,79 @@ public class modificarGasto extends javax.swing.JPanel {
             }
         });
 
-        labelIdGasto.setText("orignal");
+        botonListar.setBackground(new java.awt.Color(95, 158, 160));
+        botonListar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListar.setForeground(new java.awt.Color(255, 255, 255));
+        botonListar.setText("LISTAR");
+        botonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134)
-                .addComponent(botonGuardar)
-                .addGap(79, 79, 79))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(498, 498, 498)
+                        .addComponent(jLabel2)
+                        .addGap(79, 79, 79)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(445, 445, 445)
+                        .addComponent(jLabel4)
+                        .addGap(116, 116, 116)
+                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(401, 401, 401)
+                        .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(230, 230, 230)
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(253, 253, 253)
+                        .addComponent(botonGuardar)))
+                .addContainerGap(364, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(155, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(83, 83, 83)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(110, 110, 110)
-                                .addComponent(labelIdGasto)))
-                        .addContainerGap())
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(268, 268, 268))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(378, 378, 378))))
+                        .addGap(665, 665, 665))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(487, 487, 487))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(labelIdGasto)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(93, 93, 93)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel4))
-                .addGap(54, 54, 54))
+                    .addComponent(botonBuscar)
+                    .addComponent(botonListar))
+                .addGap(162, 162, 162)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(116, 116, 116)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(143, 143, 143))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -252,13 +297,17 @@ public class modificarGasto extends javax.swing.JPanel {
              rs=clases.gasto.verGasto(cx, txtNombre.getText());
               while(rs.next()){
                    datos[0]=rs.getString("nombre_gasto");
-                   datos[1]=rs.getInt("id_gasto");
+      
                   
                    tabla.addRow(datos);
-                   labelIdGasto.setText(datos[1].toString());
+                  
                  
               }
-             
+             cancelar();
+              desactivarEditar();
+              desactivarGuardar();
+              desactivarCancelar();
+              desactivarCampo();
               
           }catch(Exception e){
                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al mostrar el gasto","ERROR",ERROR_MESSAGE); 
@@ -275,6 +324,10 @@ public class modificarGasto extends javax.swing.JPanel {
             
             txtNombre2.setText(nombre);
            
+           activarEditar();
+           desactivarGuardar();
+           desactivarCancelar();
+           desactivarCampo();
            
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No hay datos en la tabla","ERROR",ERROR_MESSAGE);
@@ -282,13 +335,20 @@ public class modificarGasto extends javax.swing.JPanel {
     }//GEN-LAST:event_tablaGastosMouseClicked
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        int id= Integer.parseInt(labelIdGasto.getText());
+
         try{
+             int filaSeleccionada = tablaGastos.getSelectedRow();
+            
+            String nombre =tablaGastos.getValueAt(filaSeleccionada, 0).toString();
+           int id= clases.gasto.obtenerId(cx, nombre);
             clases.gasto.updateGasto(cx, txtNombre2.getText(), id);
+              JOptionPane.showMessageDialog(null, "Se han actualizado los datos correctamente");
             desactivarCancelar();
             desactivarGuardar();
-            limpiar();
+       
             cancelar();
+            desactivarCampo();
+            listar();
         }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Error al actualizar el gasto","ERROR",ERROR_MESSAGE);
         }
@@ -310,12 +370,15 @@ public class modificarGasto extends javax.swing.JPanel {
         editar();  
         activarCancelar();
         activarGuardar();
+        desactivarEditar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         cancelar();
+        desactivarCampo();
         desactivarCancelar();
         desactivarGuardar();
+        
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void txtNombre2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombre2KeyTyped
@@ -330,17 +393,22 @@ public class modificarGasto extends javax.swing.JPanel {
       habilitarBotonGuardar();
     }//GEN-LAST:event_txtNombre2KeyReleased
 
+    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
+listar();
+txtNombre.setText("");
+    }//GEN-LAST:event_botonListarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonGuardar;
+    private javax.swing.JButton botonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelIdGasto;
     private javax.swing.JTable tablaGastos;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombre2;

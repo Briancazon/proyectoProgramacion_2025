@@ -17,12 +17,10 @@ public class cliente {
         stm.setString(3,direccion);
         stm.setInt(4,borrado);
         
-        try{
+
             stm.executeUpdate();
             
-        }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage());
-        }
+      
     }
     
     
@@ -60,11 +58,9 @@ public class cliente {
          ResultSet rs=null;
          PreparedStatement stm=cx.prepareStatement("SELECT apenom,  telefono, direccion from clientes  where apenom like ? and borrado=0 ");
          stm.setString(1, "%"+apenom+"%");
-         try{
+
              rs=stm.executeQuery();
-         }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage());
-         }
+       
          return rs;
      }
      
@@ -72,62 +68,52 @@ public class cliente {
          ResultSet rs=null;
          PreparedStatement stm=cx.prepareStatement("SELECT apenom , telefono, direccion from clientes where borrado=0");
       
-         try{
+        
              rs=stm.executeQuery();
-         }catch(Exception e){
-              JOptionPane.showMessageDialog(null, "Ha ocurrido buscar el cliente","ERROR",ERROR_MESSAGE);
-         }
+        
          return rs;
      }
       
       
-      public static int obtenerCodigoCliente(Connection cx, String apenom)throws Exception{
+      public static int obtenerCodigoCliente(Connection cx, String apenom, String telefono)throws Exception{
           ResultSet rs=null;
           int codigo=0;
-          PreparedStatement stm=cx.prepareStatement("SELECT codigo from clientes where apenom=?");
+          PreparedStatement stm=cx.prepareStatement("SELECT codigo from clientes where apenom=? and telefono=? and borrado=0");
           stm.setString(1,apenom);
+           stm.setString(2 ,telefono);
           
           
-          try{
+
               rs=stm.executeQuery();
               if (rs.next())
                  codigo= rs.getInt("codigo");
               
-              
-          }catch(Exception e){
-                JOptionPane.showMessageDialog(null,e.getMessage());
-          }
+         
           return codigo;
       }
       
       public static void updateCliente(Connection cx, String apenom, String telefono, String direccion, int codigo)throws Exception{
-          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set apenom, telefono=?, direccion=? where codigo=?");
+          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set apenom=?, telefono=?, direccion=? where codigo=?");
           stm.setString(1, apenom);
           stm.setString(2, telefono);
           stm.setString(3, direccion);
           stm.setInt(4, codigo);
           
-          try{
+         
               stm.executeUpdate();
-          }catch(Exception  e){
-               JOptionPane.showMessageDialog(null,e.getMessage());
-          }
+       
              
       }
       
-      public static void eliminarCliente(Connection cx, String nombre, String apellido)throws Exception{
-          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set borrado=1 where apenom=?");
-          stm.setString(1, nombre);
-          stm.setString(2, apellido);
-          
-          try{
-              stm.executeUpdate();
-          }catch(Exception e){
-               JOptionPane.showMessageDialog(null,e.getMessage());
-          }
+      public static void eliminarCliente(Connection cx, String apenom, String telefono)throws Exception{
+          PreparedStatement stm=cx.prepareStatement("UPDATE clientes set borrado=1 where apenom=? and telefono=?");
+          stm.setString(1, apenom);
+          stm.setString(2, telefono);
           
          
-          
+              stm.executeUpdate();
+        
+  
           
       }
 }

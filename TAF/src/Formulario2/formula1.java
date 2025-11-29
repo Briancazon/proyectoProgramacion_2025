@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.JTextField;
+
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,10 +33,10 @@ public class formula1 extends javax.swing.JPanel {
           DefaultTableModel tabla3=new DefaultTableModel();
         DefaultTableModel tabla4=new DefaultTableModel();
         DefaultTableModel tabla5=new DefaultTableModel();
-     Object[] datos=new Object[2];
-      Object[] datos2=new Object[3];
+     Object[] datos=new Object[3];
+      Object[] datos2=new Object[4];
       Object[] datos3=new Object[3];
-      Object[] datos4=new Object[3];
+      Object[] datos4=new Object[4];
      Object[] datos5=new Object[3];
     
      
@@ -82,6 +85,7 @@ public class formula1 extends javax.swing.JPanel {
       boxPreventista.setSelectedItem("Seleccione un Preventista");
       txtMonto.setText("");
       txtVentas.setText("");
+      txtFecha.setText("");
       DefaultTableModel m1 = (DefaultTableModel) tablaFiados.getModel();
       DefaultTableModel m2 = (DefaultTableModel) tablaTransferencias.getModel();
       DefaultTableModel m3 = (DefaultTableModel) tablaGastos.getModel();
@@ -166,7 +170,7 @@ public class formula1 extends javax.swing.JPanel {
              float montoFiado=0;
             for (int i = 0; i < tablaFiados.getRowCount(); i++) {
             
-             Object montoObj = tablaFiados.getValueAt(i, 1);
+             Object montoObj = tablaFiados.getValueAt(i, 2);
 
              // Primero validar que NO sean null
              if ( montoObj == null) {
@@ -185,7 +189,7 @@ public class formula1 extends javax.swing.JPanel {
           float totalTransferencias=0;
             for (int i = 0; i < tablaTransferencias.getRowCount(); i++) {
             
-             Object montoTObj = tablaTransferencias.getValueAt(i, 1);
+             Object montoTObj = tablaTransferencias.getValueAt(i, 2);
 
              // Primero validar que NO sean null
              if ( montoTObj == null) {
@@ -222,7 +226,7 @@ public class formula1 extends javax.swing.JPanel {
          int cantidadD=0;
               for (int i = 0; i < tablaDevolucion.getRowCount(); i++) {
             
-             Object montoDObj = tablaDevolucion.getValueAt(i, 1);
+             Object montoDObj = tablaDevolucion.getValueAt(i, 2);
 
              // Primero validar que NO sean null
              if ( montoDObj == null) {
@@ -348,9 +352,9 @@ public class formula1 extends javax.swing.JPanel {
       void cargarComboPreventista(){
         try{
             rs=clases.preventista.listarPreventistas(cx);
-            ls2.addElement("Seleccione un Preventista");
+
             while(rs.next())
-                ls2.addElement(rs.getString("apellido"));
+                ls2.addElement(rs.getString("apellido")+"---"+rs.getString("dni"));
                 boxPreventista.setModel(ls2);
             
         }catch(Exception e){
@@ -391,6 +395,8 @@ public class formula1 extends javax.swing.JPanel {
         tablaFiados = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         txtNombreCliente = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        txtTelefono1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -404,6 +410,8 @@ public class formula1 extends javax.swing.JPanel {
         tablaTransferencias = new javax.swing.JTable();
         txtNombreCliente2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
+        txtTelefono2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         boxGasto = new javax.swing.JComboBox<>();
@@ -427,6 +435,8 @@ public class formula1 extends javax.swing.JPanel {
         txtMotivo = new javax.swing.JTextField();
         txtNombreCliente3 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        txtTelefono3 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -592,13 +602,13 @@ public class formula1 extends javax.swing.JPanel {
 
         tablaFiados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Cliente", "Monto Fiado"
+                "Cliente", "Tel.", "Monto Fiado"
             }
         ));
         tablaFiados.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -622,6 +632,10 @@ public class formula1 extends javax.swing.JPanel {
             }
         });
 
+        jLabel31.setText("Tel.");
+
+        txtTelefono1.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -634,22 +648,31 @@ public class formula1 extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(74, 74, 74)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                        .addComponent(jLabel2)
                         .addGap(44, 44, 44)
                         .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtMontoFiado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(48, 48, 48))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addGap(63, 63, 63)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMontoFiado, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(txtTelefono1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(botonAgregarFiado, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                        .addComponent(botonQuitarFiado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton1)
+                        .addComponent(botonAgregarFiado, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(botonQuitarFiado, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -660,17 +683,19 @@ public class formula1 extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMontoFiado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonAgregarFiado)
+                            .addComponent(botonAgregarFiado)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel31)
+                                .addComponent(txtTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(botonQuitarFiado)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonQuitarFiado)
+                            .addComponent(txtMontoFiado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -733,13 +758,13 @@ public class formula1 extends javax.swing.JPanel {
 
         tablaTransferencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Cliente", "Monto", "Estado"
+                "Cliente", "Tel.", "Monto", "Estado"
             }
         ));
         tablaTransferencias.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -757,6 +782,10 @@ public class formula1 extends javax.swing.JPanel {
             }
         });
 
+        jLabel32.setText("Tel.");
+
+        txtTelefono2.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -766,22 +795,25 @@ public class formula1 extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel28)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                                .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMontoTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel32))
+                                .addGap(55, 55, 55)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMontoTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(217, 217, 217)
                         .addComponent(jLabel4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(txtNombreCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombreCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(txtTelefono2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonAgregarTransferencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -798,18 +830,32 @@ public class formula1 extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(txtNombreCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtMontoTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAgregarTransferencia))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
-                    .addComponent(botonQuitarTransferencia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonAgregarTransferencia)
+                            .addComponent(jLabel32))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addComponent(botonQuitarTransferencia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTelefono2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtMontoTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         Rendicion.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
@@ -976,13 +1022,13 @@ public class formula1 extends javax.swing.JPanel {
 
         tablaDevolucion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Cliente", "Monto", "Motivo"
+                "Cliente", "Tel.", "Monto", "Motivo"
             }
         ));
         tablaDevolucion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1008,33 +1054,41 @@ public class formula1 extends javax.swing.JPanel {
             }
         });
 
+        jLabel33.setText("Tel.");
+
+        txtTelefono3.setEditable(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMontoDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                    .addComponent(txtMotivo)
-                    .addComponent(txtNombreCliente3))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(botonQuitarDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addComponent(botonAgregarDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton3))
-                .addGap(36, 36, 36))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel14)
                 .addGap(221, 221, 221))
             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel15)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel17)
+                            .addGap(4, 4, 4)))
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(txtNombreCliente3)
+                    .addComponent(txtMontoDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(txtTelefono3))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(botonQuitarDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addComponent(botonAgregarDevolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1046,22 +1100,31 @@ public class formula1 extends javax.swing.JPanel {
                     .addComponent(jLabel15)
                     .addComponent(txtNombreCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(txtMontoDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAgregarDevolucion))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(botonQuitarDevolucion)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(botonAgregarDevolucion))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel33)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTelefono3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMontoDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonQuitarDevolucion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
         );
 
         Rendicion.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 370, -1, -1));
@@ -1314,17 +1377,19 @@ public class formula1 extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarTransferenciaActionPerformed
-     if(txtMontoTransferencia.getText().isEmpty() || txtNombreCliente2.getText().isEmpty()){
+     if(txtMontoTransferencia.getText().isEmpty() || txtNombreCliente2.getText().isEmpty() || txtTelefono2.getText().isEmpty()){
          JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de transferencia","ERROR",ERROR_MESSAGE);
      }else{
           datos2[0]=txtNombreCliente2.getText().trim();
-          datos2[1]=txtMontoTransferencia.getText().trim();
-          datos2[2]=boxEstado.getSelectedItem().toString().trim();
+          datos2[1]=txtTelefono2.getText().trim();
+          datos2[2]=txtMontoTransferencia.getText().trim();
+          datos2[3]=boxEstado.getSelectedItem().toString().trim();
      
   
      tabla2.insertRow(0, datos2);
      txtMontoTransferencia.setText("");
      txtNombreCliente2.setText("");
+     txtTelefono2.setText("");
      rendicionTIempoReal();
      
      }
@@ -1332,16 +1397,19 @@ public class formula1 extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarTransferenciaActionPerformed
 
     private void botonAgregarFiadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarFiadoActionPerformed
-if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
+if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() || txtTelefono1.getText().isEmpty()){
       JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de fiados","ERROR",ERROR_MESSAGE);
       return;
 }else{
      datos[0]=txtNombreCliente.getText().trim();
-     datos[1]=txtMontoFiado.getText().trim();
+     datos[1]=txtTelefono1.getText().trim();
+     datos[2]=txtMontoFiado.getText().trim();
+     
   
      tabla1.insertRow(0, datos);
      txtMontoFiado.setText("");
      txtNombreCliente.setText("");
+     txtTelefono1.setText("");
      rendicionTIempoReal();
 
 }
@@ -1379,7 +1447,7 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
     }//GEN-LAST:event_tablaTransferenciasMouseClicked
 
     private void botonAgregarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarGastoActionPerformed
-       if (txtMontoGasto.getText().isEmpty()){
+       if (txtMontoGasto.getText().isEmpty() || boxGasto.getSelectedItem().equals("Seleccione un Gasto")){
           JOptionPane.showMessageDialog(null, "Debe llenar todos los campos de gastos","ERROR",ERROR_MESSAGE);
            return;
        }else{
@@ -1405,13 +1473,14 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
     }//GEN-LAST:event_tablaGastosMouseClicked
 
     private void botonAgregarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarDevolucionActionPerformed
-       if (txtMontoDevolucion.getText().isEmpty() || txtNombreCliente3.getText().isEmpty() ){
+       if (txtMontoDevolucion.getText().isEmpty() || txtNombreCliente3.getText().isEmpty() || txtTelefono3.getText().isEmpty()){
           JOptionPane.showMessageDialog(null, "Debe llenar algunos campos de devolución","ERROR",ERROR_MESSAGE);
            return;
        }else{
            datos4[0]=txtNombreCliente3.getText().trim();
-           datos4[1]=txtMontoDevolucion.getText().trim();
-           datos4[2]=txtMotivo.getText().trim();
+           datos4[1]=txtTelefono3.getText().trim();
+           datos4[2]=txtMontoDevolucion.getText().trim();
+           datos4[3]=txtMotivo.getText().trim();
            
           
   
@@ -1419,6 +1488,7 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
           txtMontoDevolucion.setText("");
           txtMotivo.setText("");      
           txtNombreCliente3.setText("");
+          txtTelefono3.setText("");
           rendicionTIempoReal();
 
       }
@@ -1468,11 +1538,39 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
           JOptionPane.showMessageDialog(null, "Debe llenar algunos campos obligatorios","ERROR",ERROR_MESSAGE);
           return;
       }
-      
+        
       
       try{
                    String fechaDB=obtenerFecha();// si la fecha está mal, salta directo al catch
-                   int id=clases.preventista.obetnerId(cx, boxPreventista.getSelectedItem().toString());
+                   
+                   ////////////////////////verificamos que primero haya cargado un objetivo del año y mes que haya cargado  en fecha, por ejemplo si pone 01/01/2025  verficaremos que tenga un objetivo cargado del mes 1(enero) del año 2025 en esta caso, si no tiene cargado un objetivo el sistema no le permitirá registrar una rendicion hasta que cargue un objetivo del mes de enero de 2025 en esta caso
+                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                  LocalDate fecha = LocalDate.parse(fechaDB, formatter);
+
+                   int año = fecha.getYear();   // ej: 2025
+                   int mes  = fecha.getMonthValue(); // ej: 11
+                   // Obtener mes en español (enero, febrero, …)
+                   String mesEnLetra = fecha.getMonth()
+                  .getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+
+                   // Convertir primera letra a mayúscula
+                   mesEnLetra = mesEnLetra.substring(0,1).toUpperCase() + mesEnLetra.substring(1);
+                   String preventista= boxPreventista.getSelectedItem().toString();
+            // Separar en base al guion
+            String[] partes = preventista.split("---");
+            // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+            String apellido = partes[0].trim();
+            String dni = partes[1].trim();
+            int id=clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
+                   
+                   int id_objetivo=clases.objetivo.obtenerIDporMesYAño(cx, id, año, mes); //obtener el id objetivo del preventista , para ver si la fecha que ingreso el usuario(el año y el mes mas que nada) estan cargados en objetivos, osea que haya cargado el objetivo del preventista con ese año y ese mes 
+                   if(id_objetivo==0){
+                        JOptionPane.showMessageDialog(null, "No ha registrado un objetivo del año "+año+" del mes "+mesEnLetra+" del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
+                     return;
+                   }
+                   
+                   
+                   ////////////////////////////veriricamos que no registre una misma rendicion dos veces, es decir, si ya cargo la rendicion de cazon el 01/01/2025 y quiere volver a cargar otra rendicion de cazon con esa fecha, el sistema no le permitirá, ya que solo es un rendicion por dia...
                boolean v= clases.rendicion.veficarDobleRendicion(cx,fechaDB, id);
                if (v==true){
                      JOptionPane.showMessageDialog(null, "Ya ha registrado la rendicion de la fecha "+txtFecha.getText()+" del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
@@ -1480,17 +1578,20 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
                }
       }catch(Exception e){
              JOptionPane.showMessageDialog(null, "error ","ERROR",ERROR_MESSAGE);
+             e.printStackTrace();
               return;
+              
       }
 
       ///////////////////////////////////// FIADOS
        float  totalFiado=0;
         for (int i = 0; i < tablaFiados.getRowCount(); i++) {
           Object clienteObj = tablaFiados.getValueAt(i, 0);
-           Object montoObj = tablaFiados.getValueAt(i, 1);
+          Object telefono1Obj = tablaFiados.getValueAt(i, 1);
+           Object montoObj = tablaFiados.getValueAt(i, 2);
 
         // Primero validar que NO sean null
-        if (clienteObj == null || montoObj == null) {
+        if (clienteObj == null || montoObj == null || telefono1Obj==null) {
             continue; // salta a la siguiente fila
         }
 
@@ -1505,11 +1606,12 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
         float totalTransferencias=0;
         for (int j=0; j<tablaTransferencias.getRowCount();j++){
             Object cliente2Obj = tablaTransferencias.getValueAt(j, 0);
-            Object monto2Obj = tablaTransferencias.getValueAt(j, 1);
-            Object estadoObj=tablaTransferencias.getValueAt(j, 2);
+            Object telefono2Obj = tablaTransferencias.getValueAt(j, 1);
+            Object monto2Obj = tablaTransferencias.getValueAt(j, 2);
+            Object estadoObj=tablaTransferencias.getValueAt(j, 3);
                
           // validar que NO sean null
-        if (cliente2Obj == null || monto2Obj == null || estadoObj == null)  {
+        if (cliente2Obj == null || monto2Obj == null || estadoObj == null || telefono2Obj==null)  {
             continue; // salta a la siguiente fila
         }
         
@@ -1542,10 +1644,11 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
         
         for (int h=0;h<tablaDevolucion.getRowCount();h++){
             Object cliente3Obj=tablaDevolucion.getValueAt(h, 0);
-            Object monto4Obj=tablaDevolucion.getValueAt(h, 1);
-            Object motivo3Obj=tablaDevolucion.getValueAt(h, 2);
+             Object telefono3Obj=tablaDevolucion.getValueAt(h, 1);
+            Object monto4Obj=tablaDevolucion.getValueAt(h, 2);
+            Object motivo3Obj=tablaDevolucion.getValueAt(h, 3);
             
-            if(cliente3Obj==null || monto4Obj==null || motivo3Obj==null ){
+            if(cliente3Obj==null || monto4Obj==null || motivo3Obj==null || telefono3Obj==null ){
                 continue;
             }
             String clienteD=cliente3Obj.toString().trim();
@@ -1591,21 +1694,27 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
     
 
         
+        String preventista= boxPreventista.getSelectedItem().toString();
+            // Separar en base al guion
+            String[] partes = preventista.split("---");
+            // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+            String apellido = partes[0].trim();
+            String dni = partes[1].trim();
+            
         
-        
-        String apenom=boxPreventista.getSelectedItem().toString();
+
         String zona=boxZona.getSelectedItem().toString();
         try{
         
         String fechaDB=obtenerFecha();// si la fecha está mal, salta directo al catch
         
             
-          int id_preventista=  clases.preventista.obetnerId(cx, apenom);
+          int id_preventista=  clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
           int id_zona=clases.zona.obtenerId(cx, zona);
             clases.rendicion.insertarRendicion(cx, id_preventista, fechaDB, id_zona, totalGeneral, rendicionFinal, totalFiado, totalDevolucion, totalGastos, diferencia, cantidadVentas, txtObservacion.getText()  );
           
         }catch(Exception e){
-             JOptionPane.showMessageDialog(null, "Error al registrar la rendición","ERROR",ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Error al registrar la rendición","ERROR",ERROR_MESSAGE);   ///si ocurre un error al intentar registrar una rendicion, directamente retorna y no se sigue ejecutando.., si es que esta todo bien continua e inserta con las demas tablas..
              return;
         }
         
@@ -1616,17 +1725,19 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
         // insert a la tabla fiados
           for (int y=0;y<tablaFiados.getRowCount();y++){
             Object clienteFiado=tablaFiados.getValueAt(y, 0);
-            Object montoFiado=tablaFiados.getValueAt(y, 1);
+            Object telefonoFiado=tablaFiados.getValueAt(y, 1);
+            Object montoFiado=tablaFiados.getValueAt(y, 2);
      
-            if(clienteFiado==null || montoFiado==null ){
+            if(clienteFiado==null || montoFiado==null || telefonoFiado==null){
                 continue;
             }
             String cf=clienteFiado.toString().trim();
+            String tf=telefonoFiado.toString().trim();
             String mf=montoFiado.toString().trim();
             
             try{
-                int id_cliente=clases.cliente.obtenerCodigoCliente(cx, cf);
-                int id_preventista=  clases.preventista.obetnerId(cx, apenom);
+                int id_cliente=clases.cliente.obtenerCodigoCliente(cx, cf, tf);
+                int id_preventista=  clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
                  String fechaDB=obtenerFecha();
                  int id_rendicion=  clases.rendicion.buscarIdRendicion(cx, fechaDB, id_preventista);
               
@@ -1641,13 +1752,15 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
           ///insert a la tabla transferncias...
             for (int t=0;t<tablaTransferencias.getRowCount();t++){
             Object clienteTransferencia=tablaTransferencias.getValueAt(t, 0);
-            Object montoTransferencia=tablaTransferencias.getValueAt(t, 1);
-            Object estadoTransferencia=tablaTransferencias.getValueAt(t, 2);
+            Object telefonoTransferencia=tablaTransferencias.getValueAt(t, 1);
+            Object montoTransferencia=tablaTransferencias.getValueAt(t, 2);
+            Object estadoTransferencia=tablaTransferencias.getValueAt(t, 3);
      
-            if(clienteTransferencia==null || montoTransferencia==null ){
+            if(clienteTransferencia==null || montoTransferencia==null || telefonoTransferencia==null ){
                 continue;
             }
             String ct=clienteTransferencia.toString().trim();
+            String tt=telefonoTransferencia.toString().trim();
             String mt=montoTransferencia.toString().trim();
            String et = (estadoTransferencia == null) ? "" : estadoTransferencia.toString().trim();
            if (et == null || et.trim().isEmpty()) {
@@ -1655,11 +1768,11 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
             }
             
             try{
-                int id_cliente=clases.cliente.obtenerCodigoCliente(cx, ct);
-                  int id_preventista=  clases.preventista.obetnerId(cx, apenom);
+                int id_cliente=clases.cliente.obtenerCodigoCliente(cx, ct,tt);
+                  int id_preventista=  clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
                    String fechaDB=obtenerFecha();
                  int id_rendicion=  clases.rendicion.buscarIdRendicion(cx, fechaDB, id_preventista);
-                 System.out.println("Transferencia -> cliente: " + id_cliente + ", fecha: " + fechaDB + ", monto: " + mt + ", id_rendicion: " + id_rendicion + ", estado: " + et);
+
 
                 clases.rendicion.insertarTransferencia(cx, fechaDB, id_cliente, Float.parseFloat(mt), id_rendicion, et);
             }catch(Exception ex){
@@ -1683,7 +1796,7 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
             
             try{
                 int id_gasto= clases.gasto.obtenerId(cx, g);
-                  int id_preventista=  clases.preventista.obetnerId(cx, apenom);
+                  int id_preventista=  clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
                    String fechaDB=obtenerFecha();
                  int id_rendicion=  clases.rendicion.buscarIdRendicion(cx, fechaDB, id_preventista);
                 clases.rendicion.insertarGastosRealizados(cx, id_gasto, id_preventista, Float.parseFloat(mg), id_rendicion);
@@ -1695,31 +1808,34 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
             /// insert a la tabla devoluciones..
               for (int d=0;d<tablaDevolucion.getRowCount();d++){
             Object clienteDev=tablaDevolucion.getValueAt(d, 0);
-            Object montoDev=tablaDevolucion.getValueAt(d, 1);
-            Object motivoDev=tablaDevolucion.getValueAt(d, 2);
+             Object telefonoDev=tablaDevolucion.getValueAt(d, 1);
+            Object montoDev=tablaDevolucion.getValueAt(d, 2);
+            Object motivoDev=tablaDevolucion.getValueAt(d, 3);
      
-            if(clienteDev==null || montoDev==null  || motivoDev==null){
+            if(clienteDev==null || montoDev==null  || motivoDev==null || telefonoDev ==null){
                 continue;
             }
             String cd=clienteDev.toString().trim();
+            String td=telefonoDev.toString().trim();
             String md=montoDev.toString().trim();
             String motivoD=motivoDev.toString().trim();
             
             try{
                
-                int id_cliente= clases.cliente.obtenerCodigoCliente(cx,cd );
-                   int id_preventista=  clases.preventista.obetnerId(cx, apenom);
+                int id_cliente= clases.cliente.obtenerCodigoCliente(cx,cd , td);
+                   int id_preventista=  clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
                     String fechaDB=obtenerFecha();
                  int id_rendicion=  clases.rendicion.buscarIdRendicion(cx, fechaDB, id_preventista);
                 clases.rendicion.insertarDevolucion(cx, id_cliente, Float.parseFloat(md), motivoD, id_rendicion);
             }catch(Exception e){
                  JOptionPane.showMessageDialog(null, "Error al intentar cargar una devolucion","ERROR",ERROR_MESSAGE);
+                 
             }
         }
               
               
               
-          
+         JOptionPane.showMessageDialog(null, "Se ha registrado la rendición correctamente");
                ///una vez finalizadas todas las inserciones, limpiamos pantalla..
                limpiar();
         
@@ -1742,6 +1858,18 @@ if (txtMontoFiado.getText().isEmpty() || txtNombreCliente.getText().isEmpty() ){
 
     public void setTxtProducto(String nombre) {
         txtProducto.setText(nombre);
+    }
+
+    public void setTxtTelefono1(String telefono) {
+        this.txtTelefono1.setText(telefono);
+    }
+
+    public void setTxtTelefono2(String telefono2) {
+        this.txtTelefono2.setText(telefono2);
+    }
+
+    public void setTxtTelefono3(String telefono3) {
+        this.txtTelefono3.setText(telefono3);
     }
     
 
@@ -2016,6 +2144,9 @@ dialog.setVisible(true);
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2058,6 +2189,9 @@ dialog.setVisible(true);
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtPuntosDeVentas;
     private javax.swing.JTextField txtRendicionReal;
+    private javax.swing.JTextField txtTelefono1;
+    private javax.swing.JTextField txtTelefono2;
+    private javax.swing.JTextField txtTelefono3;
     private javax.swing.JTextField txtTotalGeneral;
     private javax.swing.JTextField txtVentas;
     // End of variables declaration//GEN-END:variables

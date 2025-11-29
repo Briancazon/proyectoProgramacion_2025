@@ -63,12 +63,13 @@ public class eliminarPreventista extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Eliminar Preventista");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("DNI");
 
+        txtDni.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDniKeyReleased(evt);
@@ -89,9 +90,14 @@ public class eliminarPreventista extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPreventista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPreventistaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPreventista);
 
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +105,9 @@ public class eliminarPreventista extends javax.swing.JPanel {
             }
         });
 
-        botonEliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        botonEliminar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonEliminar.setForeground(new java.awt.Color(255, 255, 255));
         botonEliminar.setText("ELIMINAR");
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,42 +120,42 @@ public class eliminarPreventista extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(56, 56, 56)
-                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(botonBuscar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(408, 408, 408)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(162, 162, 162)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGap(556, 556, 556)
+                .addComponent(jLabel2)
+                .addGap(104, 104, 104)
+                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 337, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(623, 623, 623))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 878, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(372, 372, 372))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(326, 326, 326))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(74, 74, 74)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonBuscar)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(123, 123, 123)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonBuscar)))
+                .addGap(109, 109, 109)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(144, 144, 144)
                 .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addContainerGap(299, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,7 +172,7 @@ public class eliminarPreventista extends javax.swing.JPanel {
     
     int dni= Integer.parseInt(txtDni.getText().toString());
         try{
-            tablaPreventista.setModel(tabla);
+           
              rs= clases.preventista.verPreventista(cx, dni);
              // while(rs.next()){
              if(rs.next()){
@@ -175,12 +183,14 @@ public class eliminarPreventista extends javax.swing.JPanel {
                    datos[4]=rs.getInt("año_ingreso");
                  
                    
-                   activarEliminar();
+            
                    tabla.addRow(datos);
                   
               //}
+               tablaPreventista.setModel(tabla);
              }else{
                  JOptionPane.showMessageDialog(null, "No existe el preventista con dni "+txtDni.getText(),"ERROR",ERROR_MESSAGE); 
+                 desactivarEliminar();
              }
               
           }catch(Exception e){
@@ -189,10 +199,7 @@ public class eliminarPreventista extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-         if (txtDni.getText().isEmpty() ){
-             JOptionPane.showMessageDialog(null, "Campo vacío","ERROR",ERROR_MESSAGE);
-             return;
-        }
+      
         
          int respuesta = JOptionPane.showConfirmDialog(
        null,
@@ -202,15 +209,22 @@ public class eliminarPreventista extends javax.swing.JPanel {
         JOptionPane.WARNING_MESSAGE
        );
         if (respuesta == JOptionPane.YES_OPTION){
-          int dni= Integer.parseInt(txtDni.getText().toString());
+             int filaSeleccionada = tablaPreventista.getSelectedRow();
+            
+
+           String dni =tablaPreventista.getValueAt(filaSeleccionada, 2).toString();
+      
           try{
-            clases.preventista.eliminarPreventista(cx, dni);
+            clases.preventista.eliminarPreventista(cx, Integer.parseInt(dni));
              JOptionPane.showMessageDialog(null, "Preventista eliminado correctamente");
+             desactivarEliminar();
+             
           }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al tratar de eliminar al preventista","ERROR",ERROR_MESSAGE); 
           }
         }else{
              JOptionPane.showMessageDialog(null, "Se ha cancelado la eliminación");
+             desactivarEliminar();
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
@@ -225,6 +239,19 @@ public class eliminarPreventista extends javax.swing.JPanel {
     private void txtDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyReleased
         habilitarBotonBuscar();
     }//GEN-LAST:event_txtDniKeyReleased
+
+    private void tablaPreventistaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPreventistaMouseClicked
+       try{
+           int filaSeleccionada = tablaPreventista.getSelectedRow();
+           String dni =tablaPreventista.getValueAt(filaSeleccionada, 2).toString();
+           activarEliminar();
+       }catch(Exception e){
+           
+       }
+            
+
+
+    }//GEN-LAST:event_tablaPreventistaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

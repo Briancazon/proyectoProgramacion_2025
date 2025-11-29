@@ -17,6 +17,33 @@ public class verProductos extends javax.swing.JPanel {
     public verProductos() {
         initComponents();
         desactivarBuscar();
+        listar();
+    }
+    
+    void listar(){
+               //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Descripion");
+    tabla.addColumn("Marca"); 
+    tabla.addColumn("Precio"); 
+
+        try{
+           tablaProductos.setModel(tabla);
+             rs= clases.producto.verTodosProductos(cx);
+              while(rs.next()){
+                   datos[0]=rs.getString("descripcion");
+                   datos[1]=rs.getString("marca");
+                   datos[2]=rs.getString("precio");
+                   
+                  
+                   tabla.addRow(datos);
+
+              }
+             
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar la zona","ERROR",ERROR_MESSAGE);
+       }
     }
     public void habilitarBotonBuscar(){
        if( !txtDescripcion.getText().isEmpty()){
@@ -43,12 +70,13 @@ public class verProductos extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Consulta Productos");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Descripcion");
 
+        txtDescripcion.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDescripcionKeyReleased(evt);
@@ -58,7 +86,9 @@ public class verProductos extends javax.swing.JPanel {
             }
         });
 
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +109,9 @@ public class verProductos extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablaProductos);
 
-        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonListar.setBackground(new java.awt.Color(95, 158, 160));
+        botonListar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListar.setForeground(new java.awt.Color(255, 255, 255));
         botonListar.setText("LISTAR");
         botonListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,41 +123,48 @@ public class verProductos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel2)
-                        .addGap(47, 47, 47)
-                        .addComponent(txtDescripcion)
-                        .addGap(32, 32, 32)
-                        .addComponent(botonBuscar)
-                        .addGap(33, 33, 33)
-                        .addComponent(botonListar)
-                        .addGap(8, 8, 8)))
-                .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(371, 371, 371))
+                .addGap(553, 553, 553)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(640, 640, 640))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(187, 187, 187)
+                        .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(527, 527, 527))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(384, 384, 384))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addGap(0, 114, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonListar)
-                    .addComponent(botonBuscar)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(95, 95, 95)
+                    .addComponent(botonBuscar))
+                .addGap(96, 96, 96)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addGap(303, 303, 303))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -151,35 +190,14 @@ public class verProductos extends javax.swing.JPanel {
               }
              
        }catch(Exception e){
-           e.printStackTrace();
+
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el producto","ERROR",ERROR_MESSAGE);
        }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
-        //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
-    tabla.setRowCount(0);   
-    tabla.setColumnCount(0);
-    tabla.addColumn("Descripion");
-    tabla.addColumn("Marca"); 
-    tabla.addColumn("Precio"); 
-
-        try{
-           tablaProductos.setModel(tabla);
-             rs= clases.producto.verTodosProductos(cx);
-              while(rs.next()){
-                   datos[0]=rs.getString("descripcion");
-                   datos[1]=rs.getString("marca");
-                   datos[2]=rs.getString("precio");
-                   
-                  
-                   tabla.addRow(datos);
-
-              }
-             
-       }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar la zona","ERROR",ERROR_MESSAGE);
-       }
+   listar();
+   txtDescripcion.setText("");
     }//GEN-LAST:event_botonListarActionPerformed
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped

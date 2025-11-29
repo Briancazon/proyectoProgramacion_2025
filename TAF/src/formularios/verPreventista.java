@@ -28,6 +28,7 @@ public class verPreventista extends javax.swing.JPanel {
     public verPreventista() {
         initComponents();
         desactivarBuscar();
+        listar();
     }
     public void habilitarBotonBuscar(){
        if( !txtDni.getText().isEmpty()){
@@ -39,6 +40,36 @@ public class verPreventista extends javax.swing.JPanel {
     void desactivarBuscar(){
         botonBuscar.setEnabled(false);
         
+    }
+    
+    void listar(){
+           //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaPreventista' es la tabla que hemos creado en el formulario.
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre");
+    tabla.addColumn("Apellido");
+    tabla.addColumn("DNI");
+    tabla.addColumn("Telefono");
+    tabla.addColumn("Año Ingreso");
+    
+    
+        try{
+           tablaPreventista.setModel(tabla);
+             rs= clases.preventista.listarPreventistas(cx);
+              while(rs.next()){
+                   datos[0]=rs.getString("nombre");
+                   datos[1]=rs.getString("apellido");
+                   datos[2]=rs.getString("dni");
+                   datos[3]=rs.getString("telefono");
+                   datos[4]=rs.getString("año_ingreso");
+                  
+                   tabla.addRow(datos);
+
+              }
+             
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar la zona","ERROR",ERROR_MESSAGE);
+       }
     }
 
     /**
@@ -60,12 +91,13 @@ public class verPreventista extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Consulta Preventistas");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("DNI");
 
+        txtDni.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDniKeyReleased(evt);
@@ -88,7 +120,9 @@ public class verPreventista extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablaPreventista);
 
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +130,9 @@ public class verPreventista extends javax.swing.JPanel {
             }
         });
 
-        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonListar.setBackground(new java.awt.Color(95, 158, 160));
+        botonListar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListar.setForeground(new java.awt.Color(255, 255, 255));
         botonListar.setText("LISTAR");
         botonListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,39 +144,44 @@ public class verPreventista extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(729, 729, 729))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(333, 333, 333)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1042, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(584, 584, 584)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(botonBuscar)
-                                .addGap(31, 31, 31)
-                                .addComponent(botonListar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(366, 366, 366)
-                        .addComponent(jLabel1)))
-                .addContainerGap(186, Short.MAX_VALUE))
+                                .addGap(117, 117, 117)
+                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(232, 232, 232)
+                                .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(313, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonListar)
-                    .addComponent(botonBuscar)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
+                .addGap(98, 98, 98)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
                 .addGap(94, 94, 94)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,33 +219,7 @@ public class verPreventista extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
-       //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaPreventista' es la tabla que hemos creado en el formulario.
-    tabla.setRowCount(0);   
-    tabla.setColumnCount(0);
-    tabla.addColumn("Nombre");
-    tabla.addColumn("Apellido");
-    tabla.addColumn("DNI");
-    tabla.addColumn("Telefono");
-    tabla.addColumn("Año Ingreso");
-    
-    
-        try{
-           tablaPreventista.setModel(tabla);
-             rs= clases.preventista.listarPreventistas(cx);
-              while(rs.next()){
-                   datos[0]=rs.getString("nombre");
-                   datos[1]=rs.getString("apellido");
-                   datos[2]=rs.getString("dni");
-                   datos[3]=rs.getString("telefono");
-                   datos[4]=rs.getString("año_ingreso");
-                  
-                   tabla.addRow(datos);
-
-              }
-             
-       }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar la zona","ERROR",ERROR_MESSAGE);
-       }
+    listar();
     }//GEN-LAST:event_botonListarActionPerformed
 
     private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped

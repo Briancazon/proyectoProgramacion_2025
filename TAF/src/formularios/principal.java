@@ -2,17 +2,18 @@
 package formularios;
 
 
-import Formulario2.CE;
-import Formulario2.PD;
-import Formulario2.devolucion;
+
+
+
 import Formulario2.fiado;
 import Formulario2.formula1;
-import Formulario2.gastos;
+
 import Formulario2.objetivos;
 import Formulario2.objetivosConsulta;
 import Formulario2.rendiciones;
+import Formulario2.sueldo;
 import Formulario2.transferencia;
-import com.formdev.flatlaf.intellijthemes.FlatGrayIJTheme;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,26 +22,30 @@ import java.awt.Color;
 
 
 
-public class principal extends javax.swing.JFrame {
 
+public class principal extends javax.swing.JFrame {
+    String usuario;
+    String contraseña;
+  modificarUsuario mu= new modificarUsuario();
  
     public principal() {
         initComponents();
       //  this.setExtendedState(this.MAXIMIZED_BOTH);
        this.setLocationRelativeTo(null);
        this.setExtendedState(this.MAXIMIZED_BOTH);
-      
+  
 
 
     }
-
  
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
         escritorio1 = new javax.swing.JPanel();
+        labelBienvenida = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         rendicion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,11 +79,8 @@ public class principal extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -89,15 +91,23 @@ public class principal extends javax.swing.JFrame {
         escritorio.setPreferredSize(new java.awt.Dimension(877, 608));
         escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        labelBienvenida.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout escritorio1Layout = new javax.swing.GroupLayout(escritorio1);
         escritorio1.setLayout(escritorio1Layout);
         escritorio1Layout.setHorizontalGroup(
             escritorio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1730, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorio1Layout.createSequentialGroup()
+                .addContainerGap(664, Short.MAX_VALUE)
+                .addComponent(labelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(594, 594, 594))
         );
         escritorio1Layout.setVerticalGroup(
             escritorio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+            .addGroup(escritorio1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(labelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(934, Short.MAX_VALUE))
         );
 
         escritorio.add(escritorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1730, 1010));
@@ -425,40 +435,20 @@ public class principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu6.setText("Sueldo");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
+
         jMenu4.setText("Usuario");
-
-        jMenuItem13.setText("Alta");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
             }
         });
-        jMenu4.add(jMenuItem13);
-
-        jMenuItem14.setText("Baja");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem14);
-
-        jMenuItem15.setText("Modificación");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem15);
-
-        jMenuItem16.setText("Consulta");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem16);
-
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Consultas");
@@ -494,19 +484,21 @@ public class principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1010, Short.MAX_VALUE)
             .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   
+
     private void opcionCargarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionCargarClienteActionPerformed
 
     cargarCliente cc= new cargarCliente();
     cc.setSize(escritorio1.getSize());
 
-    cc.setSize(960, 623);
+    cc.setSize(1684, 1031);
     cc.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(cc, BorderLayout.CENTER);
@@ -522,13 +514,15 @@ public class principal extends javax.swing.JFrame {
 
     private void opcionCargarVerZonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionCargarVerZonasActionPerformed
 
-       cargarZona cz= new cargarZona();
-    cz.setSize(960, 623);
+     cargarZona cz= new cargarZona();
+    cz.setSize(1684, 1031);
     cz.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(cz, BorderLayout.CENTER);
     escritorio1.revalidate();
     escritorio1.repaint();
+
+      
         
     }//GEN-LAST:event_opcionCargarVerZonasActionPerformed
 
@@ -536,9 +530,9 @@ public class principal extends javax.swing.JFrame {
         
        
        modificarZona mz= new modificarZona();
-    mz.setSize(960, 623);
+    mz.setSize(1684, 1031);
     mz.setLocation(0,0);
-    escritorio.removeAll();
+    escritorio1.removeAll();
     escritorio1.add(mz, BorderLayout.CENTER);
     escritorio1.revalidate();
     escritorio1.repaint(); 
@@ -547,7 +541,7 @@ public class principal extends javax.swing.JFrame {
 
     private void opcionVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionVerClientesActionPerformed
      verClientes vc= new verClientes();
-    vc.setSize(960, 623);
+    vc.setSize(1684, 1031);
     vc.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(vc, BorderLayout.CENTER);
@@ -558,7 +552,7 @@ public class principal extends javax.swing.JFrame {
 
     private void opcionModificarEliminarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionModificarEliminarClientesActionPerformed
         modificarEliminarCliente mec= new modificarEliminarCliente();
-    mec.setSize(960, 623);
+    mec.setSize(1684, 1031);
     mec.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(mec, BorderLayout.CENTER);
@@ -569,7 +563,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
     cargaPreventista cp= new cargaPreventista();
-    cp.setSize(960, 623);
+    cp.setSize(1684, 1031);
     cp.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(cp, BorderLayout.CENTER);
@@ -579,7 +573,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
        verPreventista vp= new verPreventista();
-    vp.setSize(960, 623);
+    vp.setSize(1684, 1031);
     vp.setLocation(0,0);
     escritorio1.removeAll();
     escritorio1.add(vp, BorderLayout.CENTER);
@@ -589,7 +583,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
           modificarPreventista mp = new modificarPreventista();
-         mp.setSize(960, 623);
+         mp.setSize(1684, 1031);
          mp.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(mp, BorderLayout.CENTER);
@@ -600,9 +594,9 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
          eliminarPreventista ep = new eliminarPreventista();
-         ep.setSize(960, 623);
+         ep.setSize(1684, 1031);
          ep.setLocation(0,0);
-         escritorio.removeAll();
+         escritorio1.removeAll();
          escritorio1.add(ep, BorderLayout.CENTER);
          escritorio1.revalidate();
          escritorio1.repaint();  
@@ -610,7 +604,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
          cargaGastos cg = new cargaGastos();
-         cg.setSize(960, 623);
+         cg.setSize(1684, 1031);
          cg.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(cg, BorderLayout.CENTER);
@@ -620,7 +614,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
          verGastos vg = new verGastos();
-         vg.setSize(960, 623);
+         vg.setSize(1684, 1031);
          vg.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(vg, BorderLayout.CENTER);
@@ -630,7 +624,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
           modificarGasto mg = new modificarGasto();
-         mg.setSize(960, 623);
+         mg.setSize(1684, 1031);
          mg.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(mg, BorderLayout.CENTER);
@@ -640,7 +634,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
            eliminarGasto eg = new eliminarGasto();
-         eg.setSize(960, 623);
+         eg.setSize(1684, 1031);
          eg.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(eg, BorderLayout.CENTER);
@@ -650,7 +644,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
           cargaProductos cp = new cargaProductos();
-         cp.setSize(960, 623);
+         cp.setSize(1684, 1031);
          cp.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(cp, BorderLayout.CENTER);
@@ -660,7 +654,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
          verProductos vp = new verProductos();
-         vp.setSize(960, 623);
+         vp.setSize(1684, 1031);
          vp.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(vp, BorderLayout.CENTER);
@@ -670,7 +664,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
          modificarProducto mp = new modificarProducto();
-         mp.setSize(960, 623);
+         mp.setSize(1684, 1031);
          mp.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(mp, BorderLayout.CENTER);
@@ -680,53 +674,13 @@ public class principal extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
          eliminarProducto ep = new eliminarProducto();
-         ep.setSize(960, 623);
+         ep.setSize(1684, 1031);
          ep.setLocation(0,0);
          escritorio1.removeAll();
          escritorio1.add(ep, BorderLayout.CENTER);
          escritorio1.revalidate();
          escritorio1.repaint();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
-
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-         cargaUsuario cu = new cargaUsuario();
-        cu.setSize(960, 623);
-         cu.setLocation(0,0);
-         escritorio1.removeAll();
-         escritorio1.add(cu, BorderLayout.CENTER);
-         escritorio1.revalidate();
-         escritorio1.repaint();
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
-
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        verUsuarios vu = new verUsuarios();
-        vu.setSize(960, 623);
-         vu.setLocation(0,0);
-         escritorio1.removeAll();
-         escritorio1.add(vu, BorderLayout.CENTER);
-         escritorio1.revalidate();
-         escritorio1.repaint();
-    }//GEN-LAST:event_jMenuItem16ActionPerformed
-
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        modificarUsuario mu = new modificarUsuario();
-        mu.setSize(960, 623);
-         mu.setLocation(0,0);
-         escritorio1.removeAll();
-         escritorio1.add(mu, BorderLayout.CENTER);
-         escritorio1.revalidate();
-         escritorio1.repaint();
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
-
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        eliminarUsuario eu = new eliminarUsuario();
-        eu.setSize(960, 623);
-         eu.setLocation(0,0);
-         escritorio1.removeAll();
-         escritorio1.add(eu, BorderLayout.CENTER);
-         escritorio1.revalidate();
-         escritorio1.repaint();
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void rendicionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rendicionMouseEntered
        rendicion.setBackground(new Color(51, 51, 255));
@@ -760,6 +714,10 @@ public class principal extends javax.swing.JFrame {
        pdevuelto.setBackground(new Color(51, 102, 255));
     }//GEN-LAST:event_pdevueltoMouseExited
 
+    public void setLabelBienvenida(String nombre) {
+        this.labelBienvenida.setText(nombre);
+    }
+
     private void rendicionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rendicionMouseClicked
         formula1 f1 = new formula1();
         f1.setSize(1830, 1031);
@@ -791,13 +749,7 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_transferenciaMouseClicked
 
     private void pdevueltoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdevueltoMouseClicked
-        PD p = new PD();
-         p.setSize(1684, 1031);
-         p.setLocation(0,0);
-         escritorio1.removeAll();
-         escritorio1.add(p, BorderLayout.CENTER);
-         escritorio1.revalidate();
-         escritorio1.repaint();
+      
         
         
         
@@ -825,11 +777,11 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_transferencia1MouseClicked
 
     private void transferencia1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transferencia1MouseEntered
-        // TODO add your handling code here:
+ transferencia1.setBackground(new Color(51, 51, 255));
     }//GEN-LAST:event_transferencia1MouseEntered
 
     private void transferencia1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transferencia1MouseExited
-        // TODO add your handling code here:
+      transferencia1.setBackground(new Color(51, 102, 255));
     }//GEN-LAST:event_transferencia1MouseExited
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
@@ -842,49 +794,31 @@ public class principal extends javax.swing.JFrame {
          escritorio1.repaint();
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+         sueldo s = new sueldo();
+         s.setSize(1684, 1031);
+         s.setLocation(0,0);
+         escritorio1.removeAll();
+         escritorio1.add(s, BorderLayout.CENTER);
+         escritorio1.revalidate();
+         escritorio1.repaint();
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+     modificarUsuario mu = new modificarUsuario();
+         mu.setSize(1684, 1031);
+         mu.setLocation(0,0);
+         escritorio1.removeAll();
+         escritorio1.add(mu, BorderLayout.CENTER);
+         escritorio1.revalidate();
+         escritorio1.repaint();
+    }//GEN-LAST:event_jMenu4MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-         try{
-//            UIManager.setLookAndFeel(new FlatLightLaf());
-              FlatGrayIJTheme.setup();
-        } catch (Exception ex) {
-             System.out.println("NO");
-        }
-        
-        
-        
-        
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new principal().setVisible(true);
-            }
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -901,15 +835,12 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem2;
@@ -921,6 +852,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelBienvenida;
     private javax.swing.JMenuItem opcionCargarCliente;
     private javax.swing.JMenuItem opcionCargarVerZonas;
     private javax.swing.JMenuItem opcionModificarEliminarClientes;

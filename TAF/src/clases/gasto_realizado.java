@@ -22,4 +22,14 @@ public class gasto_realizado {
        
     }
     
+    public static ResultSet verGastosTotalesPreventista(Connection cx, int año, int mes, int id_preventista)throws Exception{
+        ResultSet rs=null;
+        PreparedStatement stm=cx.prepareStatement("select ga.nombre_gasto, sum(gr.monto), pre.apellido, pre.dni from gastos_realizados as gr inner join gastos as ga on gr.id_gasto=ga.id_gasto inner join preventista as pre on gr.id_preventista=pre.codigo inner join objetivos as ob on ob.id_preventista=pre.codigo inner join rendicion as ren on gr.id_rendicion=ren.id_rendicion where year(ren.fecha)=? and month(ren.fecha)=? and pre.codigo=? group by ga.nombre_gasto");
+        stm.setInt(1,año);
+        stm.setInt(2, mes);
+        stm.setInt(3, id_preventista);
+        rs=stm.executeQuery();
+        return rs;
+    }
+    
 }

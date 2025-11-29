@@ -174,15 +174,19 @@ void cargarClientesActivos(){
             
             
             String nombre=tablaClientes.getValueAt(filaSeleccionada, 0).toString();
+                String telefono=tablaClientes.getValueAt(filaSeleccionada, 1).toString();
             
             
             if(origen==1){
                     f1.setTxtPrueba(nombre);
+                    f1.setTxtTelefono1(telefono);
             }else if(origen==2){
                     f1.setTxtNombreCliente2(nombre);
+                    f1.setTxtTelefono2(telefono);
                 
             }else{
                 f1.setTxtNombreCliente3(nombre);
+                f1.setTxtTelefono3(telefono);
             }
       
           

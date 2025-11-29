@@ -14,7 +14,7 @@ public class transferencia extends javax.swing.JPanel {
     Connection cx=conexion.conexion.conexion();
     DefaultComboBoxModel ls2= new DefaultComboBoxModel();
     DefaultTableModel tabla=new DefaultTableModel();
-     Object[] datos=new Object[4]; 
+     Object[] datos=new Object[5]; 
 
  
     public transferencia() {
@@ -59,7 +59,7 @@ public class transferencia extends javax.swing.JPanel {
             rs=clases.preventista.listarPreventistas(cx);
             
             while(rs.next())
-                ls2.addElement(rs.getString("apellido"));
+                ls2.addElement(rs.getString("apellido")+"---"+rs.getString("dni"));
                 boxPreventista.setModel(ls2);
             
         }catch(Exception e){
@@ -67,7 +67,44 @@ public class transferencia extends javax.swing.JPanel {
         }
     }
      
+     void verTransferenciasPreventista(){
+         
+           tabla.setRowCount(0);   
+           tabla.setColumnCount(0);
+            tabla.addColumn("Fecha");
+           tabla.addColumn("Cliente");
+           tabla.addColumn("Tel. Cliente");
+          tabla.addColumn("Monto");
+          tabla.addColumn("Estado");
+    
+
+     try{
+          String preventista= boxPreventista.getSelectedItem().toString();
+            // Separar en base al guion
+            String[] partes = preventista.split("---");
+            // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+            String apellido = partes[0].trim();
+            String dni = partes[1].trim();
+        int id=clases.preventista.obtenerID(cx, apellido, Integer.parseInt(dni));
+        rs=clases.rendicion.verTransferencias(cx, id);
      
+        while(rs.next()){
+            datos[0]=rs.getString("tra.fecha");
+            datos[1]=rs.getString("cli.apenom");
+             datos[2]=rs.getString("cli.telefono");
+            datos[3]=rs.getString("tra.monto");
+            datos[4]=rs.getString("tra.estado");
+            
+           
+            tabla.addRow(datos);
+        }
+         tablaTransferencias.setModel(tabla);
+       
+    }catch(Exception e){
+          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar las transferencias del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
+        
+    }
+     }
 
 
    
@@ -91,13 +128,13 @@ public class transferencia extends javax.swing.JPanel {
 
         tablaTransferencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Cliente", "Monto", "Estado"
+                "Fecha", "Cliente", "Tel. Cliente", "Monto", "Estado"
             }
         ));
         tablaTransferencias.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,34 +249,7 @@ public class transferencia extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   
-           tabla.setRowCount(0);   
-           tabla.setColumnCount(0);
-            tabla.addColumn("Fecha");
-           tabla.addColumn("Cliente");
-          tabla.addColumn("Monto");
-          tabla.addColumn("Estado");
-    
-    String preventista=boxPreventista.getSelectedItem().toString();
-     try{
-        int id=clases.preventista.obetnerId(cx, preventista);
-        rs=clases.rendicion.verTransferencias(cx, id);
-     
-        while(rs.next()){
-            datos[0]=rs.getString("tra.fecha");
-            datos[1]=rs.getString("cli.apenom");
-            datos[2]=rs.getString("tra.monto");
-            datos[3]=rs.getString("tra.estado");
-            
-           
-            tabla.addRow(datos);
-        }
-         tablaTransferencias.setModel(tabla);
-       
-    }catch(Exception e){
-          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar las transferencias del preventista "+boxPreventista.getSelectedItem(),"ERROR",ERROR_MESSAGE);
-        
-    }
+   verTransferenciasPreventista();
      
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -262,24 +272,31 @@ public class transferencia extends javax.swing.JPanel {
             
             String fecha=tablaTransferencias.getValueAt(filaSeleccionada, 0).toString();
             String cliente =tablaTransferencias.getValueAt(filaSeleccionada, 1).toString();
+             String cliente_tel =tablaTransferencias.getValueAt(filaSeleccionada, 2).toString();
             
      
             
             
               
-            String preventista=boxPreventista.getSelectedItem().toString();
+           
       
        
             try{
-              
-              int id_p=clases.preventista.obetnerId(cx, preventista);
-              int id_c=clases.cliente.obtenerCodigoCliente(cx, cliente);
+               String preventista= boxPreventista.getSelectedItem().toString();
+                       // Separar en base al guion
+                       String[] partes = preventista.split("---");
+                       // Guardar los datos por separado, es decir el apellido del preventista en una variable y su dni en otra...
+                       String apellido = partes[0].trim();
+                       String dni = partes[1].trim();
+              int id_p=clases.preventista.obtenerID(cx,apellido, Integer.parseInt(dni));
+              int id_c=clases.cliente.obtenerCodigoCliente(cx, cliente, cliente_tel);
               int id_r=clases.rendicion.buscarIdRendicion(cx, fecha, id_p);
               clases.rendicion.actualizarTransferenciasPendientes(cx, boxEstado.getSelectedItem().toString(), id_r, id_c);
           
               JOptionPane.showMessageDialog(null, "Se ha actualizado el estado de la transferencia correctamente");
               desactivarBotonGuardar();
               desactivarBoxEstado();
+              verTransferenciasPreventista();
             }catch(Exception e){
               JOptionPane.showMessageDialog(null, "No se ha podido actualizar el estado de la transferencia","ERROR",ERROR_MESSAGE);
            }

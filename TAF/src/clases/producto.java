@@ -14,22 +14,18 @@ public class producto {
         stm.setString(1, descripcion);
         stm.setString(2, marca);
         stm.setFloat(3, precio);
-        try{
+
             stm.executeUpdate();
-        }catch(SQLException e){
-               JOptionPane.showMessageDialog(null,e.getMessage());  
-        }
+      
     }
     
     public static ResultSet verProducto(Connection cx, String descripcion)throws SQLException{
         ResultSet rs= null;
         PreparedStatement stm=cx.prepareStatement("SELECT codigo, descripcion, marca, precio from productos where descripcion like ? and borrado=0;");
         stm.setString (1, "%" + descripcion + "%");
-        try{
+
            rs= stm.executeQuery();
-        }catch(SQLException e){
-             JOptionPane.showMessageDialog(null,e.getMessage());  
-        }
+      
         return rs;
         
         
@@ -37,7 +33,7 @@ public class producto {
     
      public static ResultSet verTodosProductos(Connection cx)throws Exception{
         ResultSet rs= null;
-        PreparedStatement stm=cx.prepareStatement("SELECT descripcion, marca, precio from productos where borrado=0");
+        PreparedStatement stm=cx.prepareStatement("SELECT codigo, descripcion, marca, precio from productos where borrado=0");
        
  
            rs= stm.executeQuery();
@@ -50,11 +46,9 @@ public class producto {
      public static void eliminarProducto(Connection cx, int codigo)throws Exception {
          PreparedStatement stm=cx.prepareStatement("UPDATE productos set borrado=1 where codigo = ?");
          stm.setInt(1, codigo);
-         try{
+
              stm.executeUpdate();
-         }catch(SQLException e){
-               JOptionPane.showMessageDialog(null,e.getMessage());
-         }
+        
      }
      
      public static void updateProducto(Connection cx, String descripcion, String marca, float precio, int codigo)throws Exception{
@@ -63,11 +57,9 @@ public class producto {
          stm.setString(2, marca);
          stm.setFloat(3, precio);
          stm.setInt(4, codigo);
-         try{
+    
              stm.executeUpdate();
-         }catch(SQLException e){
-             JOptionPane.showMessageDialog(null,e.getMessage());
-         }
+        
      }
      
      
@@ -76,14 +68,12 @@ public class producto {
          ResultSet rs=null;
          PreparedStatement stm=cx.prepareStatement("SELECT codigo from productos where descripcion =?");
          stm.setString(1, descripcion);
-         try{
+
              rs=stm.executeQuery();
              while(rs.next()){
                  codigo=rs.getInt("codigo");
              }
-         }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage());
-         }
+         
          return codigo;
      }
      
@@ -92,14 +82,12 @@ public class producto {
          ResultSet rs=null;
          PreparedStatement stm=cx.prepareStatement("SELECT precio from productos where descripcion =?");
          stm.setString(1, descripcion);
-         try{
+
              rs=stm.executeQuery();
              while (rs.next()){
                  precio=rs.getFloat("precio");
              }
-         }catch(SQLException e){
-                 JOptionPane.showMessageDialog(null,e.getMessage());
-         }
+         
          return precio;
      }
     

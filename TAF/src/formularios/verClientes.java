@@ -27,6 +27,35 @@ public class verClientes extends javax.swing.JPanel {
     public verClientes() {
         initComponents();
         botonBuscar.setEnabled(false);
+        listar();
+    }
+    
+    
+    void listar(){
+         tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre y Apellido");
+
+    tabla.addColumn("Telefono");
+    tabla.addColumn("Dirección");
+     
+    
+ 
+    try{
+        tablaClientes.setModel(tabla);
+        rs=clases.cliente.verTodosClientes(cx);
+        while(rs.next()){
+            datos[0]=rs.getString("apenom");
+         
+            datos[1]=rs.getString("telefono");
+            datos[2]=rs.getString("direccion");
+           
+            tabla.addRow(datos);
+        }
+    }catch(Exception e){
+          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar un cliente","ERROR",ERROR_MESSAGE);
+        
+    }
     }
      //metodo que valida si todos los campos estan llenos, si es asi, habilita al boton buscar, de lo contrario, seguirá inhabilitado
     public void habilitarBotonBuscar(){
@@ -56,12 +85,13 @@ public class verClientes extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Ver Clientes");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Apellido");
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("Nombre y/o Apellido");
 
+        txtApellido.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtApellidoKeyReleased(evt);
@@ -84,7 +114,9 @@ public class verClientes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablaClientes);
 
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +124,9 @@ public class verClientes extends javax.swing.JPanel {
             }
         });
 
-        botonListar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonListar.setBackground(new java.awt.Color(95, 158, 160));
+        botonListar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListar.setForeground(new java.awt.Color(255, 255, 255));
         botonListar.setText("LISTAR");
         botonListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,41 +139,38 @@ public class verClientes extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(250, 250, 250))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(52, 52, 52)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonBuscar))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(403, 403, 403)
+                .addComponent(jLabel3)
+                .addGap(92, 92, 92)
+                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(200, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(724, 724, 724))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(225, 225, 225))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscar)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botonListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addComponent(botonListar))
+                .addGap(107, 107, 107)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,8 +178,8 @@ public class verClientes extends javax.swing.JPanel {
           //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaClientes' es la tabla que hemos creado en el formulario.
     tabla.setRowCount(0);   
     tabla.setColumnCount(0);
-    tabla.addColumn("Nombre");
-    tabla.addColumn("Apellido");
+    tabla.addColumn("Nombre y Apellido");
+
     tabla.addColumn("Telefono");
     tabla.addColumn("Dirección");
      
@@ -160,10 +191,10 @@ public class verClientes extends javax.swing.JPanel {
        
        // while(rs.next()){
        if (rs.next()){
-            datos[0]=rs.getString("nombre");
-            datos[1]=rs.getString("apellido");
-            datos[2]=rs.getString("telefono");
-            datos[3]=rs.getString("direccion");
+            datos[0]=rs.getString("apenom");
+     
+            datos[1]=rs.getString("telefono");
+            datos[2]=rs.getString("direccion");
            
             tabla.addRow(datos);
         //}
@@ -183,30 +214,7 @@ public class verClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
-    tabla.setRowCount(0);   
-    tabla.setColumnCount(0);
-    tabla.addColumn("Nombre");
-    tabla.addColumn("Apellido");
-    tabla.addColumn("Telefono");
-    tabla.addColumn("Dirección");
-     
-    
- 
-    try{
-        tablaClientes.setModel(tabla);
-        rs=clases.cliente.verTodosClientes(cx);
-        while(rs.next()){
-            datos[0]=rs.getString("nombre");
-            datos[1]=rs.getString("apellido");
-            datos[2]=rs.getString("telefono");
-            datos[3]=rs.getString("direccion");
-           
-            tabla.addRow(datos);
-        }
-    }catch(Exception e){
-          JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar un cliente","ERROR",ERROR_MESSAGE);
-        
-    }
+   listar();
     }//GEN-LAST:event_botonListarActionPerformed
 
     private void txtApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyReleased

@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class eliminarGasto extends javax.swing.JPanel {
      Connection cx=conexion.conexion.conexion();
      DefaultTableModel tabla=new DefaultTableModel();
-      Object[] datos=new Object[2];
+      Object[] datos=new Object[1];
       ResultSet rs;
 
     /**
@@ -28,8 +28,35 @@ public class eliminarGasto extends javax.swing.JPanel {
         initComponents();
         desactivarBuscar();
         desactivarEliminar();
+        listar();
     }
     
+    
+    
+    
+ 
+     void listar(){
+      //'tabla' es el objeto creado de tipo DefaultTableModel(en donde le confuguramos un modelo) , y 'tablaZonas' es la tabla que hemos creado en el formulario.
+    tabla.setRowCount(0);   
+    tabla.setColumnCount(0);
+    tabla.addColumn("Nombre del gasto");  
+        try{
+           tablaGastos.setModel(tabla);
+             rs= clases.gasto.verTodosGastos(cx);
+              while(rs.next()){
+                   datos[0]=rs.getString("nombre_gasto");
+                  
+                   tabla.addRow(datos);
+
+              }
+             
+       }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el gasto","ERROR",ERROR_MESSAGE);
+       }
+}
+     
+     
+     
      public void habilitarBotonBuscar(){
        if( !txtNombre.getText().isEmpty()){
            botonBuscar.setEnabled(true);
@@ -47,10 +74,7 @@ public class eliminarGasto extends javax.swing.JPanel {
      void desactivarBuscar(){
          botonBuscar.setEnabled(false);
      }
-     void limpiar(){
-         tabla.setRowCount(0); 
-         
-     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,8 +93,8 @@ public class eliminarGasto extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaGastos = new javax.swing.JTable();
         botonEliminar = new javax.swing.JButton();
-        labelIdGasto = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JButton();
+        botonListar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,12 +111,13 @@ public class eliminarGasto extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Eliminar Gastos");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Nombre");
 
+        txtNombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(51, 102, 255), null));
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -113,9 +138,16 @@ public class eliminarGasto extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaGastos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaGastosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaGastos);
 
-        botonEliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        botonEliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        botonEliminar.setForeground(new java.awt.Color(255, 255, 255));
         botonEliminar.setText("ELIMINAR");
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,9 +155,9 @@ public class eliminarGasto extends javax.swing.JPanel {
             }
         });
 
-        labelIdGasto.setText("jLabel3");
-
-        botonBuscar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        botonBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        botonBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
         botonBuscar.setText("BUSCAR");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,54 +165,59 @@ public class eliminarGasto extends javax.swing.JPanel {
             }
         });
 
+        botonListar.setBackground(new java.awt.Color(95, 158, 160));
+        botonListar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        botonListar.setForeground(new java.awt.Color(255, 255, 255));
+        botonListar.setText("LISTAR");
+        botonListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
             .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(labelIdGasto)
-                        .addGap(68, 68, 68))
+                .addGap(327, 327, 327)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombre)
-                        .addGap(75, 75, 75)
-                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(382, 382, 382)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(150, 150, 150)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(96, 96, 96)
+                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(171, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(664, 664, 664))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(305, 305, 305))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(labelIdGasto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(botonBuscar))
-                        .addGap(90, 90, 90)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(104, 104, 104)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(botonBuscar)
+                    .addComponent(botonListar))
+                .addGap(157, 157, 157)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addGap(172, 172, 172))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,44 +231,45 @@ public class eliminarGasto extends javax.swing.JPanel {
              rs= clases.gasto.verGasto(cx, txtNombre.getText());
               while(rs.next()){
                    datos[0]=rs.getString("nombre_gasto");
-                   datos[1]=rs.getString("id_gasto");
+
                   
                    tabla.addRow(datos);
-                   labelIdGasto.setText(datos[1].toString());
-                   activarEliminar();
+
+
 
               }
-             
+                 
        }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el gasto","ERROR",ERROR_MESSAGE);
        }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        if (txtNombre.getText().isEmpty() ){
-             JOptionPane.showMessageDialog(null, "Campo vacío","ERROR",ERROR_MESSAGE);
-             return;
-        }
-        
+       
          int respuesta = JOptionPane.showConfirmDialog(
        null,
-       "¿Estás seguro de que deseas eliminar a este gasto?",
+       "¿Estás seguro de que deseas eliminar este gasto?",
        "Confirmar eliminación",
         JOptionPane.YES_NO_OPTION,
         JOptionPane.WARNING_MESSAGE
        );
          if (respuesta == JOptionPane.YES_OPTION){
-             int id= Integer.parseInt(labelIdGasto.getText());
+
              try{
+                  int filaSeleccionada = tablaGastos.getSelectedRow();
+            
+                  String nombre =tablaGastos.getValueAt(filaSeleccionada, 0).toString();
+                int id= clases.gasto.obtenerId(cx, nombre);
                  clases.gasto.eliminarGasto(cx, id);
                  JOptionPane.showMessageDialog(null, "Gasto eliminado correctamente");
-                 limpiar();
+                 listar();
                  desactivarEliminar();
              }catch(Exception e){
                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al buscar el gasto","ERROR",ERROR_MESSAGE);
              }
          }else{
              JOptionPane.showMessageDialog(null, "Se ha cancelado la eliminación");
+             desactivarEliminar();
          }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
@@ -247,16 +285,31 @@ public class eliminarGasto extends javax.swing.JPanel {
          habilitarBotonBuscar();
     }//GEN-LAST:event_txtNombreKeyReleased
 
+    private void botonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarActionPerformed
+        listar();
+    }//GEN-LAST:event_botonListarActionPerformed
+
+    private void tablaGastosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaGastosMouseClicked
+        try{
+             int filaSeleccionada = tablaGastos.getSelectedRow();
+            
+            String nombre =tablaGastos.getValueAt(filaSeleccionada, 0).toString();
+            activarEliminar();
+        }catch(Exception e){
+            
+        }
+    }//GEN-LAST:event_tablaGastosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel labelIdGasto;
     private javax.swing.JTable tablaGastos;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

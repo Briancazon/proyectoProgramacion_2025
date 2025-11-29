@@ -185,13 +185,11 @@ public class rendicion {
      
      public static ResultSet verTransferencias(Connection cx, int id_preventista)throws Exception {
          ResultSet rs=null;
-         PreparedStatement stm=cx.prepareStatement("select tra.fecha, cli.apenom, tra.monto, pre.apellido, tra.estado  from transferencias as tra inner join clientes as cli on cli.codigo=tra.id_cliente inner join rendicion as ren on tra.id_rendicion=ren.id_rendicion inner join preventista as pre on ren.id_preventista=pre.codigo where pre.codigo=? ");
+         PreparedStatement stm=cx.prepareStatement("select tra.fecha, cli.apenom, cli.telefono,  tra.monto, pre.apellido, tra.estado  from transferencias as tra inner join clientes as cli on cli.codigo=tra.id_cliente inner join rendicion as ren on tra.id_rendicion=ren.id_rendicion inner join preventista as pre on ren.id_preventista=pre.codigo where pre.codigo=? and tra.estado='Pendiente' ");
          stm.setInt(1, id_preventista);
-         try{
+        
              rs=stm.executeQuery();
-         }catch(SQLException e){
-              JOptionPane.showMessageDialog(null,e.getMessage()); 
-         }
+       
          return rs;
      }
      
@@ -210,7 +208,7 @@ public class rendicion {
      
      public static ResultSet verFiados(Connection cx, int id_preventista)throws Exception{
          ResultSet rs=null;
-         PreparedStatement stm=cx.prepareStatement("select ren.fecha, cli.apenom, fi.monto_fiado, pre.apellido, fi.estado, (fi.monto_fiado-fi.monto_entregado)   from fiados as fi inner join rendicion as ren on fi.id_rendicion=ren.id_rendicion inner join clientes as cli on fi.id_cliente=cli.codigo inner join preventista as pre on ren.id_preventista=pre.codigo where pre.codigo=? and fi.estado='pendiente' ");
+         PreparedStatement stm=cx.prepareStatement("select ren.fecha, cli.apenom, cli.telefono, fi.monto_fiado, pre.apellido, fi.estado, (fi.monto_fiado-fi.monto_entregado)   from fiados as fi inner join rendicion as ren on fi.id_rendicion=ren.id_rendicion inner join clientes as cli on fi.id_cliente=cli.codigo inner join preventista as pre on ren.id_preventista=pre.codigo where pre.codigo=? and fi.estado='pendiente' ");
          stm.setInt(1, id_preventista);
          try{
             rs= stm.executeQuery();
